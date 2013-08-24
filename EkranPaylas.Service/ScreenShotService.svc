@@ -1,0 +1,1 @@
+﻿<%@ ServiceHost Language="C#" Debug="true" Service="EkranPaylas.Service.ScreenShotService" CodeBehind="ScreenShotService.svc.cs" %>

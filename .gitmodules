@@ -1,0 +1,3 @@
+[submodule "Coachius"]
+	path = Coachius
+	url = git@github.com:sidarok/Coachius.git

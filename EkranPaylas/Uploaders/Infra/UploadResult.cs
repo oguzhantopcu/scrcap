@@ -1,0 +1,14 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+
+namespace EkranPaylas.Uploaders.Infra
+{
+    public class UploadResult
+    {
+        public string Result { get; set; }
+    }
+
+
+}
