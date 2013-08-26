@@ -10,8 +10,8 @@ namespace EkranPaylas.Graphic
     {
         public Bitmap Grab()
         {
-            var size = new Size(Convert.ToInt32(SystemParameters.FullPrimaryScreenHeight),
-                                Convert.ToInt32(SystemParameters.FullPrimaryScreenHeight));
+            var size = new Size(Convert.ToInt32(SystemParameters.PrimaryScreenWidth),
+                Convert.ToInt32(SystemParameters.PrimaryScreenHeight));
             var bounds = new Rectangle(Point.Empty, size);
 
             var bitmap = new Bitmap(bounds.Width, bounds.Height);

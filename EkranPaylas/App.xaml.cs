@@ -7,11 +7,5 @@ namespace EkranPaylas
     /// </summary>
     public partial class App : Application
     {
-        protected override void OnStartup(StartupEventArgs e)
-        {
-            Bootstrapper.Start();
-
-            base.OnStartup(e);
-        }
     }
 }

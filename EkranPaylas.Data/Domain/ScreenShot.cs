@@ -8,6 +8,6 @@ namespace EkranPaylas.Data.Domain
 
         public string[] Links { get; set; }
 
-        public string UploaderIpAddress { get; set; }
+        public byte[] UploaderIpAddress { get; set; }
     }
 }

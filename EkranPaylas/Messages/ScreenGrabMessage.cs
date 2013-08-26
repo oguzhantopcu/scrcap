@@ -1,4 +1,4 @@
-﻿namespace EkranPaylas.ViewModels
+﻿namespace EkranPaylas.Messages
 {
     public class ScreenGrabMessage
     {

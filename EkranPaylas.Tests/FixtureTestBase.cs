@@ -1,5 +1,8 @@
 ﻿using System;
 using System.Drawing;
+using System.Linq;
+using EkranPaylas.Extensions;
+using EkranPaylas.Tasks.StartupTasks;
 using Ploeh.AutoFixture;
 
 namespace EkranPaylas.UnitTests
@@ -13,7 +16,10 @@ namespace EkranPaylas.UnitTests
 
             Fixture.Register(() => GenerateNoise(200, 200));
 
-            Bootstrapper.Start();
+            typeof (IStartupTask).GetInstances<IStartupTask>()
+                .OrderBy(q => q.Priority)
+                .ToList()
+                .ForEach(q => q.Execute());
         }
 
         protected Fixture Fixture { get; set; }

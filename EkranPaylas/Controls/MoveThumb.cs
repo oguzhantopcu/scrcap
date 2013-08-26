@@ -1,7 +1,7 @@
 ﻿using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
 
-namespace EkranPaylas.Utilities
+namespace EkranPaylas.Controls
 {
     public class MoveThumb : Thumb
     {

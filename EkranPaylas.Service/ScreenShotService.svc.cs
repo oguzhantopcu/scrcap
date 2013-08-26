@@ -1,5 +1,4 @@
-﻿using System;
-using EkranPaylas.Data.Domain;
+﻿using EkranPaylas.Data.Domain;
 using EkranPaylas.Data.Repository;
 
 namespace EkranPaylas.Service
@@ -20,7 +19,7 @@ namespace EkranPaylas.Service
             var model = new ScreenShot
                             {
                                 Links = shotLinks,
-                                UploaderIpAddress = "127.0.0.1",
+                                UploaderIpAddress = new byte[]{127,0,0,1},
                                 Id = _stringGenerator.GenerateString(StringGenerateOptions.IncludeCharAndDigits, 5)
                             };
 

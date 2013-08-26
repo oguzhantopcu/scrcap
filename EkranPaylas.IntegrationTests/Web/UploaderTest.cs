@@ -5,10 +5,9 @@ using System.Net;
 using EkranPaylas.UnitTests;
 using EkranPaylas.Uploaders;
 using Ploeh.AutoFixture;
-using Ploeh.AutoFixture.Xunit;
 using Xunit;
 
-namespace EkranPaylas.IntegrationTests
+namespace EkranPaylas.IntegrationTests.Web
 {
     public abstract class UploaderFacts : FixtureTestBase
     {
@@ -24,8 +23,8 @@ namespace EkranPaylas.IntegrationTests
             }
         }
 
-        [Fact, AutoData]
-        public void Should_Upload_Valid_Image_And_Return_Image_Url()
+        [Fact]
+        public void Upload_Should_Upload_Valid_Image_And_Return_Image_Url()
         {
             var bytes = GenerateImage();
 

@@ -49,11 +49,13 @@
     <Reference Include="Caliburn.Windsor">
       <HintPath>..\packages\Caliburn.Windsor.2.0\lib\net35\Caliburn.Windsor.dll</HintPath>
     </Reference>
-    <Reference Include="Castle.Core">
-      <HintPath>..\packages\Castle.Core.2.5.2\lib\NET35\Castle.Core.dll</HintPath>
+    <Reference Include="Castle.Core, Version=3.2.0.0, Culture=neutral, PublicKeyToken=407dd0808d44fbdc, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Castle.Core.3.2.0\lib\net35\Castle.Core.dll</HintPath>
     </Reference>
-    <Reference Include="Castle.Windsor">
-      <HintPath>..\packages\Castle.Windsor.2.5.4\lib\net35\Castle.Windsor.dll</HintPath>
+    <Reference Include="Castle.Windsor, Version=3.2.0.0, Culture=neutral, PublicKeyToken=407dd0808d44fbdc, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Castle.Windsor.3.2.1\lib\net35\Castle.Windsor.dll</HintPath>
     </Reference>
     <Reference Include="HtmlAgilityPack">
       <HintPath>..\packages\HtmlAgilityPack.1.4.6\lib\Net20\HtmlAgilityPack.dll</HintPath>
@@ -64,6 +66,8 @@
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Windows.Interactivity, Version=3.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
     <Reference Include="System.Xml" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -71,20 +75,24 @@
     <Reference Include="WindowsBase" />
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
+    <Reference Include="WPFToolkit, Version=3.5.40128.1, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
   </ItemGroup>
   <ItemGroup>
     <ApplicationDefinition Include="App.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="Bootstrapper.cs" />
+    <Compile Include="Core\EpApplication.cs" />
     <Compile Include="Extensions\AssemblyExtensions.cs" />
     <Compile Include="Extensions\BitmapExtensions.cs" />
     <Compile Include="Extensions\DateTimeExtensions.cs" />
+    <Compile Include="Extensions\DependencyObjectExtensions.cs" />
     <Compile Include="Graphic\IScreenGrabber.cs" />
     <Compile Include="Graphic\ScreenGrabber.cs" />
+    <Compile Include="Core\ServiceLocator.cs" />
     <Compile Include="Tasks\StartupTasks\HtmlAgilityPackConfigurerTask.cs" />
     <Compile Include="Tasks\StartupTasks\IStartupTask.cs" />
+    <Compile Include="Tasks\StartupTasks\KeyboardHookStartupTask.cs" />
     <Compile Include="Uploaders\Infra\ImageUploaderFactory.cs" />
     <Compile Include="Uploaders\PostimgUploader.cs" />
     <Compile Include="Uploaders\Infra\UploadResult.cs" />
@@ -93,15 +101,18 @@
     <Compile Include="Uploaders\Infra\IUploaderFactory.cs" />
     <Compile Include="Uploaders\IUploader.cs" />
     <Compile Include="Uploaders\Infra\UploadProgress.cs" />
-    <Compile Include="Utilities\MoveThumb.cs" />
-    <Compile Include="Utilities\ResizeThumb.cs" />
+    <Compile Include="Controls\MoveThumb.cs" />
+    <Compile Include="Controls\ResizeThumb.cs" />
+    <Compile Include="Utilities\MouseOperations.cs" />
     <Compile Include="Utilities\RotateThumb.cs" />
+    <Compile Include="ViewModels\IScreenGrabberViewModel.cs" />
+    <Compile Include="ViewModels\ScreenGrabberState.cs" />
     <Compile Include="ViewModels\ScreenGrabberViewModel.cs" />
     <Compile Include="Messages\ScreenGrabMessage.cs" />
-    <Compile Include="Views\GrabbingWindow.xaml.cs">
-      <DependentUpon>GrabbingWindow.xaml</DependentUpon>
+    <Compile Include="Views\ScreenGrabberView.xaml.cs">
+      <DependentUpon>ScreenGrabberView.xaml</DependentUpon>
     </Compile>
-    <Page Include="MainWindow.xaml">
+    <Page Include="Views\UploaderView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -109,15 +120,15 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="MainWindow.xaml.cs">
-      <DependentUpon>MainWindow.xaml</DependentUpon>
+    <Compile Include="Views\UploaderView.xaml.cs">
+      <DependentUpon>UploaderView.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
     <Page Include="Resources\Templates.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\GrabbingWindow.xaml">
+    <Page Include="Views\ScreenGrabberView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -148,7 +159,15 @@
     </None>
     <AppDesigner Include="Properties\" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Converters\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\EkranPaylas.Hook\EkranPaylas.Hook.csproj">
+      <Project>{F52AA97E-180A-40ED-8F2B-09080171D6C7}</Project>
+      <Name>EkranPaylas.Hook</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(SolutionDir)\.nuget\nuget.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

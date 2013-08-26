@@ -1,6 +1,6 @@
 ﻿using EkranPaylas.Uploaders;
 
-namespace EkranPaylas.IntegrationTests
+namespace EkranPaylas.IntegrationTests.Web
 {
     public class PostimgUploaderFacts : UploaderFacts
     {
