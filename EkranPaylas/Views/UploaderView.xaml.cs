@@ -1,27 +1,25 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
+﻿using System.Windows;
+using Caliburn.PresentationFramework.ApplicationModel;
+using EkranPaylas.ViewModels;
 
-namespace EkranPaylas
+namespace EkranPaylas.Views
 {
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class UploaderView : IHandle<ScreenGrabberState>
     {
-        public MainWindow()
+        public UploaderView()
         {
             InitializeComponent();
+        }
+
+        public void Handle(ScreenGrabberState message)
+        {
+            if (message == ScreenGrabberState.Upload)
+                this.Show();
+
+            this.Visibility = message == ScreenGrabberState.Upload ? Visibility.Visible : Visibility.Collapsed;
         }
     }
 }

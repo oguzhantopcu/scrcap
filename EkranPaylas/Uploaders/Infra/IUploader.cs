@@ -1,6 +1,4 @@
-﻿using EkranPaylas.Uploaders.Infra;
-
-namespace EkranPaylas.Uploaders
+﻿namespace EkranPaylas.Uploaders.Infra
 {
     public interface IUploader
     {

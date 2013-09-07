@@ -6,9 +6,9 @@ namespace EkranPaylas.Service
     public interface IScreenShotService
     {
         [OperationContract]
-        string CreateScreenShot(string[] shotLinks);
+        string New(string[] shotLinks);
 
         [OperationContract]
-        string[] GetScreenShotSources(string shotId);
+        string[] GetSources(string shotId);
     }
 }

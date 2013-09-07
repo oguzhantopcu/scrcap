@@ -10,7 +10,7 @@
         AllowsTransparency="True" Opacity="1"  
         WindowStyle="None"
         Title="Grab An Image" d:DataContext="{d:DesignInstance viewModels:ScreenGrabberViewModel}"
-        cal:Message.Attach="[Gesture Key: Escape] = [Action CancelSelect()]">
+        cal:Message.Attach="[Gesture Key: Escape] = [Action CancelSelect()]; [Gesture Key: A, Modifiers: Control] = [Action Save()]">
     <Window.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
@@ -31,11 +31,11 @@
         </Border.Background>
         <Grid>
             <Canvas Name="ContentSelectorContainer">
-                <Border Name="TopBorder" Background="Black" Opacity="0.3"/>
-                <Border Name="LeftBorder" Background="Black" Opacity="0.3"/>
+                <Border Name="TopBorder" Height="{Binding Top, Mode=TwoWay}" Background="Black" Opacity="0.3"/>
+                <Border Name="LeftBorder" Width="{Binding Left, Mode=TwoWay}" Background="Black" Opacity="0.3"/>
                 <Border Name="RightBorder" Background="Black" Opacity="0.3"/>
                 <Border Name="BottomBorder" Background="Black" Opacity="0.3"/>
-                <ContentControl Name="ContentSelector" Canvas.Left="60" Canvas.Top="100" Width="0" Height="0" Background="Transparent" Template="{StaticResource DesignerItemTemplate}"/>
+                <ContentControl Name="ContentSelector" Canvas.Left="60" Canvas.Top="100" Width="{Binding Width, Mode=TwoWay}" Height="{Binding Height, Mode=TwoWay}" Background="Transparent" Template="{StaticResource DesignerItemTemplate}"/>
                 <Border Name="ToolBoxBorder" Background="Gray">
                     <StackPanel Orientation="Horizontal">
                         <Button >Upload</Button>

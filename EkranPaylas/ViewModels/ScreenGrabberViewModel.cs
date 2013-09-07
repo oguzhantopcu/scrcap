@@ -1,16 +1,17 @@
 ﻿using System;
+using System.Drawing;
 using System.Drawing.Imaging;
 using System.IO;
 using System.Windows.Media.Imaging;
 using Caliburn.PresentationFramework;
 using Caliburn.PresentationFramework.ApplicationModel;
+using EkranPaylas.Extensions;
 using EkranPaylas.Graphic;
-using EkranPaylas.Messages;
 using EkranPaylas.Uploaders.Infra;
 
 namespace EkranPaylas.ViewModels
 {
-    public class ScreenGrabberViewModel : PropertyChangedBase , IHandle<ScreenGrabberState>
+    public class ScreenGrabberViewModel : PropertyChangedBase, IHandle<ScreenGrabberState>
     {
         private readonly IEventAggregator _eventAggregator;
         private readonly IScreenGrabber _screenGrabber;
@@ -33,8 +34,14 @@ namespace EkranPaylas.ViewModels
         }
 
         public BitmapImage BitmapImage { get; set; }
-        
-        public ScreenGrabberViewModel(IEventAggregator eventAggregator, IScreenGrabber screenGrabber, IUploaderFactory upladerFactory)
+
+        public double Top { get; set; }
+        public double Left { get; set; }
+        public double Width { get; set; }
+        public double Height { get; set; }
+
+        public ScreenGrabberViewModel(IEventAggregator eventAggregator, IScreenGrabber screenGrabber,
+            IUploaderFactory upladerFactory)
         {
             _eventAggregator = eventAggregator;
             _screenGrabber = screenGrabber;
@@ -45,9 +52,13 @@ namespace EkranPaylas.ViewModels
 
         public void Handle(ScreenGrabberState message)
         {
-            if (message == ScreenGrabberState.Select)
+            if (message == ScreenGrabberState.Sleep && CurrentProgress != null)
             {
+                CurrentProgress.Stop();
+            }
 
+            if (message == ScreenGrabberState.Select && State == ScreenGrabberState.Sleep)
+            {
                 using (var source = _screenGrabber.Grab())
                 {
                     var memoryStream = new MemoryStream();
@@ -66,15 +77,20 @@ namespace EkranPaylas.ViewModels
         public void StartUpload()
         {
             var uploader = _upladerFactory.GetUploader(HostType.EkranPaylasHost);
-            //BitmapImage.StreamSource.Read(BitmapImage.StreamSource.)
-            //CurrentProgress = uploader.StartUpload(, Guid.NewGuid() + ".png");
+
+            CurrentProgress = uploader.StartUpload(SelectImage().GetBuffer(), Guid.NewGuid() + ".png");
+            CurrentProgress.Completed += result =>
+            {
+                State = ScreenGrabberState.UploadComplete; 
+                _eventAggregator.Publish(result);
+            };
 
             State = ScreenGrabberState.Upload;
         }
 
         public void CancelUpload()
         {
-            if(CurrentProgress != null)
+            if (CurrentProgress != null)
                 CurrentProgress.Stop();
 
             State = ScreenGrabberState.Sleep;
@@ -85,9 +101,20 @@ namespace EkranPaylas.ViewModels
             State = ScreenGrabberState.Sleep;
         }
 
-        public void Save()
+        protected Image SelectImage()
         {
-            
+            return BitmapImage
+                .Select()
+                .Select(Convert.ToInt32(Left), Convert.ToInt32(Top), Convert.ToInt32(Width), Convert.ToInt32(Height));
+        }
+
+        public void Save(string location)
+        {
+            File.Delete(location);
+
+            SelectImage().Save(location, ImageFormat.Png);
+
+            CancelSelect();
         }
     }
 }

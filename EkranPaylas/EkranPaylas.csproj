@@ -85,33 +85,47 @@
     <Compile Include="Core\EpApplication.cs" />
     <Compile Include="Extensions\AssemblyExtensions.cs" />
     <Compile Include="Extensions\BitmapExtensions.cs" />
+    <Compile Include="Extensions\BitmapImageExtensions.cs" />
     <Compile Include="Extensions\DateTimeExtensions.cs" />
     <Compile Include="Extensions\DependencyObjectExtensions.cs" />
+    <Compile Include="Extensions\ImageExtensions.cs" />
+    <Compile Include="Extensions\VisualExtensions.cs" />
     <Compile Include="Graphic\IScreenGrabber.cs" />
     <Compile Include="Graphic\ScreenGrabber.cs" />
     <Compile Include="Core\ServiceLocator.cs" />
     <Compile Include="Tasks\StartupTasks\HtmlAgilityPackConfigurerTask.cs" />
     <Compile Include="Tasks\StartupTasks\IStartupTask.cs" />
     <Compile Include="Tasks\StartupTasks\KeyboardHookStartupTask.cs" />
+    <Compile Include="Uploaders\EkranPaylasUploader.cs" />
     <Compile Include="Uploaders\Infra\ImageUploaderFactory.cs" />
     <Compile Include="Uploaders\PostimgUploader.cs" />
     <Compile Include="Uploaders\Infra\UploadResult.cs" />
     <Compile Include="Uploaders\Infra\HostType.cs" />
     <Compile Include="Uploaders\Infra\IProgress.cs" />
     <Compile Include="Uploaders\Infra\IUploaderFactory.cs" />
-    <Compile Include="Uploaders\IUploader.cs" />
+    <Compile Include="Uploaders\Infra\IUploader.cs" />
     <Compile Include="Uploaders\Infra\UploadProgress.cs" />
     <Compile Include="Controls\MoveThumb.cs" />
     <Compile Include="Controls\ResizeThumb.cs" />
+    <Compile Include="Uploaders\Infra\Uploader.cs" />
     <Compile Include="Utilities\MouseOperations.cs" />
     <Compile Include="Utilities\RotateThumb.cs" />
     <Compile Include="ViewModels\IScreenGrabberViewModel.cs" />
+    <Compile Include="ViewModels\ResultViewModel.cs" />
     <Compile Include="ViewModels\ScreenGrabberState.cs" />
     <Compile Include="ViewModels\ScreenGrabberViewModel.cs" />
     <Compile Include="Messages\ScreenGrabMessage.cs" />
+    <Compile Include="ViewModels\UploaderViewModel.cs" />
+    <Compile Include="Views\ResultView.xaml.cs">
+      <DependentUpon>ResultView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\ScreenGrabberView.xaml.cs">
       <DependentUpon>ScreenGrabberView.xaml</DependentUpon>
     </Compile>
+    <Page Include="Views\ResultView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\UploaderView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>

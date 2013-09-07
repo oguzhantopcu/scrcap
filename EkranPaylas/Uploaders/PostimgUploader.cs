@@ -8,47 +8,42 @@ using RestSharp;
 
 namespace EkranPaylas.Uploaders
 {
-    public class PostimgUploader : IUploader
+    public class PostimgUploader : Uploader
     {
-        public HostType Host
+        private readonly IRestClient _restClient;
+
+        public PostimgUploader(IRestClient restClient)
+        {
+            _restClient = restClient;
+        }
+
+        public override HostType Host
         {
             get { return HostType.Postimg; }
         }
 
-        public IProgress<UploadResult> StartUpload(byte[] data, string fileName)
-        {
-            var prog =  new UploadProgress(() => new UploadResult {Result = Upload(data, fileName)});
-            prog.ExecuteAsync();
-
-            return prog;
-        }
-
-        public string Upload(byte[] data, string fileName)
+        public override string Upload(byte[] data, string fileName)
         {
             var parameters = GetParameters();
-
-            var client = new RestClient();
             
             var request = new RestRequest { Method = Method.POST, Resource = "http://postimage.org/index.php" };
             request.AddFile("upload", data, fileName);
             request.Parameters.AddRange(parameters);
-            
-            var response = client.Execute(request);
+
+            var response = _restClient.Execute(request);
             var nextUri = string.Join("/", response.ResponseUri.AbsoluteUri.Split('/').Take(5).ToArray());
-            var content = client.Execute(new RestRequest(nextUri, Method.GET)).Content;
+            var content = _restClient.Execute(new RestRequest(nextUri, Method.GET)).Content;
 
             var uri = ExtractPureUriFromResult(content);
 
-            client.Execute(new RestRequest(uri, Method.GET));
+            _restClient.Execute(new RestRequest(uri, Method.GET));
 
             return uri;
         }
 
         public string ExtractPureUriFromResult(string content)
         {
-            return "http://s" +
-                   content.Split(new[] {"http://s"}, StringSplitOptions.None)[1]
-                       .Split(new[] {"'"}, StringSplitOptions.None).First();
+            return "http://s" +content.Split(new[] {"http://s"}, StringSplitOptions.None)[1].Split(new[] {"'"}, StringSplitOptions.None).First();
         }
 
         public List<Parameter> GetParameters()

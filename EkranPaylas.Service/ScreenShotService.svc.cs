@@ -14,21 +14,21 @@ namespace EkranPaylas.Service
             _stringGenerator = stringGenerator;
         }
 
-        public string CreateScreenShot(string[] shotLinks)
+        public string New(string[] links)
         {
             var model = new ScreenShot
-                            {
-                                Links = shotLinks,
-                                UploaderIpAddress = new byte[]{127,0,0,1},
-                                Id = _stringGenerator.GenerateString(StringGenerateOptions.IncludeCharAndDigits, 5)
-                            };
+            {
+                Links = links,
+                UploaderIpAddress = new byte[] {127, 0, 0, 1},
+                Id = _stringGenerator.GenerateString(StringGenerateOptions.IncludeCharAndDigits, 5)
+            };
 
             _shotRepository.Add(model);
 
             return model.Id;
         }
 
-        public string[] GetScreenShotSources(string shotId)
+        public string[] GetSources(string shotId)
         {
             var model = _shotRepository.GetById(shotId);
             

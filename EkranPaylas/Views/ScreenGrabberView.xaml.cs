@@ -1,6 +1,9 @@
 ﻿using System;
+using System.IO;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Forms;
+using System.Windows.Input;
 using Caliburn.Core.InversionOfControl;
 using Caliburn.PresentationFramework.ApplicationModel;
 using EkranPaylas.Controls;
@@ -8,6 +11,8 @@ using EkranPaylas.Core;
 using EkranPaylas.Extensions;
 using EkranPaylas.Utilities;
 using EkranPaylas.ViewModels;
+using HorizontalAlignment = System.Windows.HorizontalAlignment;
+using KeyEventArgs = System.Windows.Input.KeyEventArgs;
 
 namespace EkranPaylas.Views
 {
@@ -29,6 +34,37 @@ namespace EkranPaylas.Views
             _eventAggregator.Subscribe(this);
 
             InitializeComponent();
+        }
+
+        public new ScreenGrabberViewModel DataContext
+        {
+            get
+            {
+                return ServiceLocator.Current.GetInstance<ScreenGrabberViewModel>();
+            }
+        }
+
+        protected override void OnKeyUp(KeyEventArgs e)
+        {
+            base.OnKeyUp(e);
+
+            if (e.KeyboardDevice.Modifiers == ModifierKeys.Control)
+            {
+                if (e.Key == Key.S)
+                    SaveCurrent();
+
+                if (e.Key == Key.U)
+                    DataContext.StartUpload();
+            }
+        }
+
+        public void SaveCurrent()
+        {
+            var dialog = new SaveFileDialog() {Filter = "to be fixed"};
+            if (System.Windows.Forms.DialogResult.OK == dialog.ShowDialog())
+            {
+                DataContext.Save(dialog.FileName);
+            }
         }
 
         protected override void OnMouseMove(System.Windows.Input.MouseEventArgs e)

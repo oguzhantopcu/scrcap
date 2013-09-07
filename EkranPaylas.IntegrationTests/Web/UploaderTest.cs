@@ -4,6 +4,7 @@ using System.IO;
 using System.Net;
 using EkranPaylas.UnitTests;
 using EkranPaylas.Uploaders;
+using EkranPaylas.Uploaders.Infra;
 using Ploeh.AutoFixture;
 using Xunit;
 

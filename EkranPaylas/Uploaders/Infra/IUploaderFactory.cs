@@ -1,6 +1,4 @@
-﻿using System.Reflection;
-
-namespace EkranPaylas.Uploaders.Infra
+﻿namespace EkranPaylas.Uploaders.Infra
 {
     public interface IUploaderFactory
     {

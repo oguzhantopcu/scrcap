@@ -2,8 +2,8 @@
 {
     public enum HostType
     {
-        Imageshack,
-        Tinypic,
+        //Imageshack,
+        //Tinypic,
         EkranPaylasHost,
         Postimg
     }

@@ -4,15 +4,19 @@ using System.Linq;
 using EkranPaylas.Extensions;
 using EkranPaylas.Tasks.StartupTasks;
 using Ploeh.AutoFixture;
+using Ploeh.AutoFixture.AutoMoq;
 
 namespace EkranPaylas.UnitTests
 {
-    public abstract class FixtureTestBase
+    public abstract class FixtureTestBase : Fixture
     {
+
+
         protected FixtureTestBase()
         {
             Random = new Random();
-            Fixture = new Fixture();
+
+            Fixture.Customize(new AutoMoqCustomization());
 
             Fixture.Register(() => GenerateNoise(200, 200));
 
@@ -22,7 +26,7 @@ namespace EkranPaylas.UnitTests
                 .ForEach(q => q.Execute());
         }
 
-        protected Fixture Fixture { get; set; }
+        protected Fixture Fixture { get { return this; } }
         protected Random Random { get; set; }
 
         protected Bitmap GenerateNoise(int width, int height)

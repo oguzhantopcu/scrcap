@@ -5,6 +5,7 @@ using EkranPaylas.Data.Domain;
 using EkranPaylas.Data.Repository;
 using EkranPaylas.Service;
 using Moq;
+using Ploeh.AutoFixture;
 using Ploeh.AutoFixture.Xunit;
 using Xunit;
 using Xunit.Extensions;
@@ -19,20 +20,20 @@ namespace EkranPaylas.UnitTests
 
         public ScreenShotServiceFacts()
         {
-            _mockRepository = new Mock<IRepository<ScreenShot>>();
-            _mockGenerator = new Mock<IStringGenerator>();
+            _mockRepository = this.Freeze<Mock<IRepository<ScreenShot>>>();
+            _mockGenerator = this.Freeze<Mock<IStringGenerator>>();
 
             _mockGenerator.Setup(f => f.GenerateString(It.IsAny<StringGenerateOptions>(), It.IsAny<int>()))
                 .Returns(() => Guid.NewGuid().ToString());
 
-            _sut = new ScreenShotService(_mockRepository.Object, _mockGenerator.Object);
+            _sut = Fixture.Freeze<ScreenShotService>();
         }
 
         [Theory, AutoData]
         public void CreateScreenShot_Should_Create_ScreenShot(Uri[] uris)
         {
             var sUris = uris.Select(f => f.AbsoluteUri.ToString(CultureInfo.InvariantCulture)).ToArray();
-            _sut.CreateScreenShot(sUris);
+            _sut.New(sUris);
 
             _mockRepository.Verify(f => f.Add(It.Is<ScreenShot>(t => t.Links == sUris)));
         }
@@ -41,7 +42,7 @@ namespace EkranPaylas.UnitTests
         public void CreateScreenShot_Should_Get_Id_From_Generator(Uri[] uris)
         {
             var sUris = uris.Select(f => f.AbsoluteUri.ToString(CultureInfo.InvariantCulture)).ToArray();
-            _sut.CreateScreenShot(sUris);
+            _sut.New(sUris);
 
             _mockGenerator.Verify(
                 f => f.GenerateString(It.Is<StringGenerateOptions>(q => q == StringGenerateOptions.IncludeCharAndDigits),
@@ -53,7 +54,7 @@ namespace EkranPaylas.UnitTests
         {
             _mockRepository.Setup(f => f.GetById(screenShot.Id)).Returns(screenShot);
 
-            var sources = _sut.GetScreenShotSources(screenShot.Id);
+            var sources = _sut.GetSources(screenShot.Id);
 
             Assert.Equal(sources, screenShot.Links);
         }
@@ -63,7 +64,7 @@ namespace EkranPaylas.UnitTests
         {
             _mockRepository.Setup(f => f.GetById(randomId)).Returns((ScreenShot)null);
 
-            var sources = _sut.GetScreenShotSources(randomId);
+            var sources = _sut.GetSources(randomId);
 
             Assert.Null(sources);
         }

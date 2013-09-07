@@ -3,6 +3,7 @@
     public enum ScreenGrabberState
     {
         Upload,
+        UploadComplete,
         Select,
         WaitForClose,
         Sleep
