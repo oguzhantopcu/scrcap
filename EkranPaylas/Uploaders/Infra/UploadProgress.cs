@@ -11,7 +11,6 @@ namespace EkranPaylas.Uploaders.Infra
         public UploadProgress(Func<UploadResult> proc)
         {
             _proc = proc;
-            _proc();
         }
 
         public DateTime StartTime { get; protected set; }
@@ -26,9 +25,16 @@ namespace EkranPaylas.Uploaders.Infra
 
         protected void Proc()
         {
-            var result = _proc();
+            try
+            {
+                var result = _proc();
 
-            Completed(result);
+                Completed(result);
+            }
+            catch (Exception x)
+            {
+                Completed(null);
+            }
         }
 
         public void Stop()

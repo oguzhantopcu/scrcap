@@ -3,16 +3,18 @@ using System.Drawing.Imaging;
 using System.IO;
 using System.Net;
 using EkranPaylas.UnitTests;
-using EkranPaylas.Uploaders;
 using EkranPaylas.Uploaders.Infra;
 using Ploeh.AutoFixture;
 using Xunit;
 
 namespace EkranPaylas.IntegrationTests.Web
 {
-    public abstract class UploaderFacts : FixtureTestBase
+    public abstract class UploaderFacts<TUploader> : FixtureTestBase where TUploader : IUploader
     {
-        public abstract IUploader GenerateUploader();
+        public virtual IUploader GenerateUploader()
+        {
+            return this.Create<TUploader>();
+        }
 
         protected byte[] GenerateImage()
         {

@@ -52,15 +52,12 @@ namespace EkranPaylas.Views
             {
                 if (e.Key == Key.S)
                     SaveCurrent();
-
-                if (e.Key == Key.U)
-                    DataContext.StartUpload();
             }
         }
 
         public void SaveCurrent()
         {
-            var dialog = new SaveFileDialog() {Filter = "to be fixed"};
+            var dialog = new SaveFileDialog();
             if (System.Windows.Forms.DialogResult.OK == dialog.ShowDialog())
             {
                 DataContext.Save(dialog.FileName);
@@ -132,8 +129,16 @@ namespace EkranPaylas.Views
         {
             Canvas.SetLeft(ContentSelector, 10000);
             Canvas.SetTop(ContentSelector, 10000); 
-            
-            this.Visibility = message == ScreenGrabberState.Select ? Visibility.Visible : Visibility.Collapsed;
+			
+			if(message != ScreenGrabberState.Select)
+				Close();
+        }
+
+        protected override void OnClosed(EventArgs e)
+        {
+            _eventAggregator.Unsubscribe(this);
+
+            base.OnClosed(e);
         }
     }
 }

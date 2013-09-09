@@ -14,7 +14,7 @@ namespace EkranPaylas.Service
             _stringGenerator = stringGenerator;
         }
 
-        public string New(string[] links)
+        public string New(params string[] links)
         {
             var model = new ScreenShot
             {

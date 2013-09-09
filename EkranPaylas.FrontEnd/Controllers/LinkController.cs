@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.Mvc;
+﻿using System.Web.Mvc;
 using EkranPaylas.Service;
 
 namespace EkranPaylas.FrontEnd.Controllers
@@ -21,6 +17,11 @@ namespace EkranPaylas.FrontEnd.Controllers
             var links = _screenShotService.GetSources(id);
 
             return View(links);
+        }
+
+        public JsonResult New(string[] uris)
+        {
+            return Json(_screenShotService.New(uris));
         }
     }
 }

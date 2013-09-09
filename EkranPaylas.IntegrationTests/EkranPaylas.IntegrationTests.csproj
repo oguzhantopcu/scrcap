@@ -79,7 +79,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
-    <None Include="Data\packages.config" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
@@ -87,8 +86,8 @@
       <Project>{F38D453F-DF2F-43B4-AB9B-37926BCFC8E0}</Project>
       <Name>EkranPaylas.Data</Name>
     </ProjectReference>
-    <ProjectReference Include="..\EkranPaylas.Tests\EkranPaylas.UnitTests.csproj">
-      <Project>{be809e50-da16-485f-b2a5-9bd4cf878f48}</Project>
+    <ProjectReference Include="..\EkranPaylas.UnitTests\EkranPaylas.UnitTests.csproj">
+      <Project>{BE809E50-DA16-485F-B2A5-9BD4CF878F48}</Project>
       <Name>EkranPaylas.UnitTests</Name>
     </ProjectReference>
     <ProjectReference Include="..\EkranPaylas\EkranPaylas.csproj">

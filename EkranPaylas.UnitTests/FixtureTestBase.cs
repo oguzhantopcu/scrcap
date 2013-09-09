@@ -10,8 +10,6 @@ namespace EkranPaylas.UnitTests
 {
     public abstract class FixtureTestBase : Fixture
     {
-
-
         protected FixtureTestBase()
         {
             Random = new Random();

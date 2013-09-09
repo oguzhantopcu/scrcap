@@ -1,16 +1,21 @@
 ﻿<Window x:Class="EkranPaylas.Views.ResultView"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        Title="Success" Height="80" Width="370">
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:viewModels="clr-namespace:EkranPaylas.ViewModels"
+        xmlns:cal="http://www.caliburnproject.org" WindowStyle="SingleBorderWindow" ResizeMode="NoResize"
+        mc:Ignorable="d" Title="Success"
+        Height="80" Width="370" d:DataContext="{d:DesignInstance viewModels:ResultViewModel}">
     <Grid>
         <Grid Margin="10">
             <StackPanel Orientation="Horizontal">
-                <Button HorizontalAlignment="Left" Width="70" Content="Copy"></Button>
+                <Button HorizontalAlignment="Left" Width="70" cal:Message.Attach="Copy"   Content="Copy"></Button>
                 <Border Width="10"></Border>
-                <Button HorizontalAlignment="Left" Width="70" Content="Open"></Button>
+                <Button HorizontalAlignment="Left" Width="70" cal:Message.Attach="Open"  Content="Open"></Button>
             </StackPanel>
 
-            <TextBox HorizontalAlignment="Right" Text="{Binding Link}" Width="176"/>
+            <TextBox HorizontalAlignment="Right" Text="{Binding Result}" Width="176"/>
         </Grid>
     </Grid>
 </Window>

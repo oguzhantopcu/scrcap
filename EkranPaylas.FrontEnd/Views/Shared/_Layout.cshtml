@@ -1,48 +1,40 @@
-﻿<!DOCTYPE html>
-<html lang="en">
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"> 
+<html>
     <head>
-        <meta charset="utf-8" />
-        <title>@ViewBag.Title - My ASP.NET MVC Application</title>
-        <link href="~/favicon.ico" rel="shortcut icon" type="image/x-icon" />
-        <meta name="viewport" content="width=device-width" />
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+        <title>Ekran Paylaş</title>
+        <link href="style.css" rel="stylesheet" type="text/css">
         @Styles.Render("~/Content/css")
         @Scripts.Render("~/bundles/modernizr")
     </head>
     <body>
-        <header>
-            <div class="content-wrapper">
-                <div class="float-left">
-                    <p class="site-title">@Html.ActionLink("your logo here", "Index", "Home")</p>
-                </div>
-                <div class="float-right">
-                    <section id="login">
-                        @Html.Partial("_LoginPartial")
-                    </section>
-                    <nav>
-                        <ul id="menu">
-                            <li>@Html.ActionLink("Home", "Index", "Home")</li>
-                            <li>@Html.ActionLink("About", "About", "Home")</li>
-                            <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
-                        </ul>
-                    </nav>
-                </div>
+        <div class="header">
+            <div class="header-ortala">
+                <div class="logo"><a href="/"><img src="/Content/images/logo.png" width="174" height="27" alt="logo"></a></div>
+                <a href="#" class="freetrial"></a>
             </div>
-        </header>
-        <div id="body">
-            @RenderSection("featured", required: false)
-            <section class="content-wrapper main-content clear-fix">
-                @RenderBody()
-            </section>
         </div>
-        <footer>
-            <div class="content-wrapper">
-                <div class="float-left">
-                    <p>&copy; @DateTime.Now.Year - My ASP.NET MVC Application</p>
+        <div class="container">
+            @RenderBody()
+        </div>
+        <div class="footer-bg">
+            <div class="foot-ortala">
+                <div class="copy">
+                    <span class="logo-foot"><a href="#"><img src="/Content/images/footer-logo.png" width="174" height="27" alt="logo"></a></span>
+                    <span class="text-foot"><strong>Copyrgiht</strong> 2011 Tüm Hakları Saklıdır</span>
+                </div>
+                <div class="foot-links">
+                    <ul>
+                        <li><a href="/Home/Faq"> Daha Fazla Bilgi</a></li>
+                        <li><a href="/Home/Faq">Sık Sorulalan Sorular</a></li>
+                        <li><a href="/ekranpaylas.application">Download</a></li>
+                        <li><a href="sartlar.html">Şartlar &amp; Koşullar</a></li>
+                        <li><a href="/">Anasayfa</a></li>
+                    </ul>
                 </div>
             </div>
-        </footer>
-
-        @Scripts.Render("~/bundles/jquery")
-        @RenderSection("scripts", required: false)
+        </div>
     </body>
+    @Scripts.Render("~/bundles/jquery")
+    @RenderSection("scripts", required: false)
 </html>

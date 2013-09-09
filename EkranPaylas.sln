@@ -3,8 +3,6 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2012
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EkranPaylas", "EkranPaylas\EkranPaylas.csproj", "{D6E5D967-CE8B-4743-9BDE-AEB512398CB9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EkranPaylas.UnitTests", "EkranPaylas.Tests\EkranPaylas.UnitTests.csproj", "{BE809E50-DA16-485F-B2A5-9BD4CF878F48}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EkranPaylas.Hook", "EkranPaylas.Hook\EkranPaylas.Hook.csproj", "{F52AA97E-180A-40ED-8F2B-09080171D6C7}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EkranPaylas.IntegrationTests", "EkranPaylas.IntegrationTests\EkranPaylas.IntegrationTests.csproj", "{FF670C07-2FB0-413C-8855-663640D5385B}"
@@ -28,6 +26,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Desktop", "Desktop", "{57DB
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{BD394B91-F82F-42E5-97C9-CE7D8FFCABB9}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EkranPaylas.UnitTests", "EkranPaylas.UnitTests\EkranPaylas.UnitTests.csproj", "{BE809E50-DA16-485F-B2A5-9BD4CF878F48}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -46,14 +46,6 @@ Global
 		{D6E5D967-CE8B-4743-9BDE-AEB512398CB9}.Release|Any CPU.Build.0 = Release|Any CPU
 		{D6E5D967-CE8B-4743-9BDE-AEB512398CB9}.Release|x64.ActiveCfg = Release|Any CPU
 		{D6E5D967-CE8B-4743-9BDE-AEB512398CB9}.Release|x86.ActiveCfg = Release|Any CPU
-		{BE809E50-DA16-485F-B2A5-9BD4CF878F48}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{BE809E50-DA16-485F-B2A5-9BD4CF878F48}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{BE809E50-DA16-485F-B2A5-9BD4CF878F48}.Debug|x64.ActiveCfg = Debug|Any CPU
-		{BE809E50-DA16-485F-B2A5-9BD4CF878F48}.Debug|x86.ActiveCfg = Debug|Any CPU
-		{BE809E50-DA16-485F-B2A5-9BD4CF878F48}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{BE809E50-DA16-485F-B2A5-9BD4CF878F48}.Release|Any CPU.Build.0 = Release|Any CPU
-		{BE809E50-DA16-485F-B2A5-9BD4CF878F48}.Release|x64.ActiveCfg = Release|Any CPU
-		{BE809E50-DA16-485F-B2A5-9BD4CF878F48}.Release|x86.ActiveCfg = Release|Any CPU
 		{F52AA97E-180A-40ED-8F2B-09080171D6C7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{F52AA97E-180A-40ED-8F2B-09080171D6C7}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F52AA97E-180A-40ED-8F2B-09080171D6C7}.Debug|x64.ActiveCfg = Debug|x64
@@ -98,6 +90,14 @@ Global
 		{F38D453F-DF2F-43B4-AB9B-37926BCFC8E0}.Release|Any CPU.Build.0 = Release|Any CPU
 		{F38D453F-DF2F-43B4-AB9B-37926BCFC8E0}.Release|x64.ActiveCfg = Release|Any CPU
 		{F38D453F-DF2F-43B4-AB9B-37926BCFC8E0}.Release|x86.ActiveCfg = Release|Any CPU
+		{BE809E50-DA16-485F-B2A5-9BD4CF878F48}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BE809E50-DA16-485F-B2A5-9BD4CF878F48}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BE809E50-DA16-485F-B2A5-9BD4CF878F48}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{BE809E50-DA16-485F-B2A5-9BD4CF878F48}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{BE809E50-DA16-485F-B2A5-9BD4CF878F48}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BE809E50-DA16-485F-B2A5-9BD4CF878F48}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BE809E50-DA16-485F-B2A5-9BD4CF878F48}.Release|x64.ActiveCfg = Release|Any CPU
+		{BE809E50-DA16-485F-B2A5-9BD4CF878F48}.Release|x86.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

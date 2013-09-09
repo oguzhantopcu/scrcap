@@ -3,14 +3,14 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-        xmlns:viewModels="clr-namespace:EkranPaylas.ViewModels" xmlns:utilities="clr-namespace:EkranPaylas.Utilities"
+        xmlns:viewModels="clr-namespace:EkranPaylas.ViewModels"
         xmlns:Controls="clr-namespace:EkranPaylas.Controls"
         xmlns:cal="http://www.caliburnproject.org"
         mc:Ignorable="d" RenderOptions.BitmapScalingMode="NearestNeighbor" SnapsToDevicePixels="True"
         AllowsTransparency="True" Opacity="1"  
         WindowStyle="None"
         Title="Grab An Image" d:DataContext="{d:DesignInstance viewModels:ScreenGrabberViewModel}"
-        cal:Message.Attach="[Gesture Key: Escape] = [Action CancelSelect()]; [Gesture Key: A, Modifiers: Control] = [Action Save()]">
+        cal:Message.Attach="[Gesture Key: Escape] = [Action Cancel()]; [Gesture Key: C, Modifiers: Control] = [Action Copy()]; [Gesture Key: U, Modifiers: Control] = [Action StartUpload()]">
     <Window.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
@@ -20,7 +20,6 @@
                 <Grid DataContext="{Binding RelativeSource={RelativeSource TemplatedParent}}">
                     <Controls:MoveThumb Template="{StaticResource MoveThumbTemplate}" Background="{TemplateBinding Background}" Cursor="SizeAll"/>
                     <Control x:Name="Resizers" Template="{StaticResource ResizeDecoratorTemplate}"/>
-                    <!--<ContentPresenter Content="{TemplateBinding ContentControl.Content}"/>-->
                 </Grid>
             </ControlTemplate>
         </ResourceDictionary>
@@ -38,12 +37,12 @@
                 <ContentControl Name="ContentSelector" Canvas.Left="60" Canvas.Top="100" Width="{Binding Width, Mode=TwoWay}" Height="{Binding Height, Mode=TwoWay}" Background="Transparent" Template="{StaticResource DesignerItemTemplate}"/>
                 <Border Name="ToolBoxBorder" Background="Gray">
                     <StackPanel Orientation="Horizontal">
-                        <Button >Upload</Button>
+                        <Button cal:Message.Attach="StartUpload">Upload</Button>
                         <Button>Save</Button>
                         <Button>Share</Button>
-                        <Button>Copy</Button>
+                        <Button cal:Message.Attach="Copy">Copy</Button>
                         <Button>Print</Button>
-                        <Button>Exit</Button>
+                        <Button cal:Message.Attach="Cancel">Exit</Button>
                     </StackPanel>
                 </Border>
             </Canvas>

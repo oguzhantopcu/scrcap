@@ -1,56 +1,60 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using System.Windows;
+using Caliburn.Core.Configuration;
 using Caliburn.Core.InversionOfControl;
 using Caliburn.PresentationFramework.ApplicationModel;
 using Caliburn.Windsor;
 using Castle.MicroKernel.Registration;
 using Castle.MicroKernel.Resolvers.SpecializedResolvers;
 using Castle.Windsor;
-using EkranPaylas.Extensions;
 using EkranPaylas.Graphic;
 using EkranPaylas.Tasks.StartupTasks;
-using EkranPaylas.Uploaders;
 using EkranPaylas.Uploaders.Infra;
+using EkranPaylas.Utilities;
 using EkranPaylas.ViewModels;
 using RestSharp;
 
 namespace EkranPaylas.Core
 {
-    public class Application : Bootstrapper<ScreenGrabberViewModel>
+    public class Application : Bootstrapper<MainViewModel>
     {
+        private WindsorContainer _container;
+
         protected override void OnStartup(object sender, StartupEventArgs e)
         {
-            typeof(IStartupTask).GetInstances<IStartupTask>()
-                                 .OrderBy(q => q.Priority)
-                                 .ToList()
-                                 .ForEach(q => q.Execute());
-
+            _container.ResolveAll<IStartupTask>()
+                .OrderBy(q => q.Priority)
+                .ToList()
+                .ForEach(q => q.Execute());
+            
             base.OnStartup(sender, e);
         }
 
         protected override IServiceLocator CreateContainer()
         {
-            var container = new WindsorContainer();
-            var adapter = new WindsorAdapter(container);
+            _container = new WindsorContainer();
+            var adapter = new WindsorAdapter(_container);
 
-            container.Kernel.Resolver.AddSubResolver(new ArrayResolver(container.Kernel, true));
-            container.Kernel.Resolver.AddSubResolver(new CollectionResolver(container.Kernel));
+            _container.Kernel.Resolver.AddSubResolver(new ArrayResolver(_container.Kernel, true));
+            _container.Kernel.Resolver.AddSubResolver(new CollectionResolver(_container.Kernel));
 
-            //container.Register(Classes.FromThisAssembly()
-            //    .Pick()
-            //    .WithServiceAllInterfaces()
-            //    .LifestyleSingleton());
+            _container.Register(Component.For<IRestClient, RestClient>().LifestyleSingleton());
+            _container.Register(Component.For<IUploaderFactory, ImageUploaderFactory>().LifestyleSingleton());
+            _container.Register(Component.For<IScreenGrabber, ScreenGrabber>().LifestyleSingleton());
+            _container.Register(Component.For<IStateHolder, StateHolder>().LifestyleSingleton());
 
-            container.Register(Component.For<IRestClient, RestClient>().LifestyleSingleton());
-            container.Register(Component.For<IUploaderFactory, ImageUploaderFactory>().LifestyleSingleton());
-            container.Register(Component.For<IScreenGrabber, ScreenGrabber>().LifestyleSingleton());
-
-            container.Register(Classes.FromThisAssembly()
+            _container.Register(Classes.FromThisAssembly()
                 .Where(x => x.Name.EndsWith("Uploader"))
                 .WithServiceDefaultInterfaces()
                 .LifestyleSingleton());
-            
-            container.Register(Classes.FromThisAssembly()
+
+            _container.Register(Classes.FromThisAssembly()
+                .Where(x => x.Name.EndsWith("Task"))
+                .WithServiceDefaultInterfaces()
+                .LifestyleSingleton());
+
+            _container.Register(Classes.FromThisAssembly()
                 .Where(x => x.Name.EndsWith("ViewModel"))
                 .WithServiceDefaultInterfaces()
                 .LifestyleSingleton());

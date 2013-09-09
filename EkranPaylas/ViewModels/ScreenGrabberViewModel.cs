@@ -3,11 +3,15 @@ using System.Drawing;
 using System.Drawing.Imaging;
 using System.IO;
 using System.Windows.Media.Imaging;
+using Caliburn.Core.InversionOfControl;
 using Caliburn.PresentationFramework;
 using Caliburn.PresentationFramework.ApplicationModel;
+using Caliburn.PresentationFramework.Invocation;
+using EkranPaylas.Core;
 using EkranPaylas.Extensions;
 using EkranPaylas.Graphic;
 using EkranPaylas.Uploaders.Infra;
+using EkranPaylas.Utilities;
 
 namespace EkranPaylas.ViewModels
 {
@@ -16,21 +20,15 @@ namespace EkranPaylas.ViewModels
         private readonly IEventAggregator _eventAggregator;
         private readonly IScreenGrabber _screenGrabber;
         private readonly IUploaderFactory _upladerFactory;
-        private ScreenGrabberState _state;
+        private readonly IWindowManager _windowManager;
+        private readonly IDispatcher _dispatcher;
+        private readonly IStateHolder _stateHolder;
 
         public IProgress<UploadResult> CurrentProgress { get; set; }
 
         public ScreenGrabberState State
         {
-            get { return _state; }
-            set
-            {
-                _state = value;
-
-                _eventAggregator.Publish(State);
-
-                NotifyOfPropertyChange(() => State);
-            }
+            get { return _stateHolder.State; }
         }
 
         public BitmapImage BitmapImage { get; set; }
@@ -41,11 +39,14 @@ namespace EkranPaylas.ViewModels
         public double Height { get; set; }
 
         public ScreenGrabberViewModel(IEventAggregator eventAggregator, IScreenGrabber screenGrabber,
-            IUploaderFactory upladerFactory)
+            IUploaderFactory upladerFactory, IWindowManager windowManager, IDispatcher dispatcher, IStateHolder stateHolder)
         {
             _eventAggregator = eventAggregator;
             _screenGrabber = screenGrabber;
             _upladerFactory = upladerFactory;
+            _windowManager = windowManager;
+            _dispatcher = dispatcher;
+            _stateHolder = stateHolder;
 
             _eventAggregator.Subscribe(this);
         }
@@ -57,7 +58,7 @@ namespace EkranPaylas.ViewModels
                 CurrentProgress.Stop();
             }
 
-            if (message == ScreenGrabberState.Select && State == ScreenGrabberState.Sleep)
+            if (message == ScreenGrabberState.Select)
             {
                 using (var source = _screenGrabber.Grab())
                 {
@@ -79,26 +80,29 @@ namespace EkranPaylas.ViewModels
             var uploader = _upladerFactory.GetUploader(HostType.EkranPaylasHost);
 
             CurrentProgress = uploader.StartUpload(SelectImage().GetBuffer(), Guid.NewGuid() + ".png");
-            CurrentProgress.Completed += result =>
+            CurrentProgress.Completed += result => _dispatcher.ExecuteOnUIThread(() =>
             {
-                State = ScreenGrabberState.UploadComplete; 
-                _eventAggregator.Publish(result);
-            };
+                _windowManager.ShowWindow(ServiceLocator.Current.GetInstance<ResultViewModel>(), null);
 
-            State = ScreenGrabberState.Upload;
+                _eventAggregator.Publish(ScreenGrabberState.UploadComplete);
+                _eventAggregator.Publish(result); 
+            });
+
+            _windowManager.ShowWindow(ServiceLocator.Current.GetInstance<UploaderViewModel>(), null);
+
+            _eventAggregator.Publish(ScreenGrabberState.Upload);
         }
 
-        public void CancelUpload()
+        public void Copy()
         {
-            if (CurrentProgress != null)
-                CurrentProgress.Stop();
+            System.Windows.Forms.Clipboard.SetImage(SelectImage());
 
-            State = ScreenGrabberState.Sleep;
+            Cancel();
         }
 
-        public void CancelSelect()
+        public void Cancel()
         {
-            State = ScreenGrabberState.Sleep;
+            _eventAggregator.Publish(ScreenGrabberState.Sleep);
         }
 
         protected Image SelectImage()
@@ -114,7 +118,7 @@ namespace EkranPaylas.ViewModels
 
             SelectImage().Save(location, ImageFormat.Png);
 
-            CancelSelect();
+            Cancel();
         }
     }
 }

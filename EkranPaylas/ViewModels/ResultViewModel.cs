@@ -1,4 +1,5 @@
-﻿using System.Windows;
+﻿using System.Diagnostics;
+using System.Windows;
 using Caliburn.PresentationFramework;
 using Caliburn.PresentationFramework.ApplicationModel;
 using EkranPaylas.Uploaders.Infra;
@@ -12,13 +13,15 @@ namespace EkranPaylas.ViewModels
         public ResultViewModel(IEventAggregator eventAggregator)
         {
             _eventAggregator = eventAggregator;
+
+            _eventAggregator.Subscribe(this);
         }
 
         private string _result;
 
         public void Handle(UploadResult message)
         {
-            this.Result = message.Result;
+            Result = message == null ? "" : message.Result;
         }
 
         public string Result
@@ -34,10 +37,15 @@ namespace EkranPaylas.ViewModels
 
         public void Copy()
         {
-            Clipboard.SetData(DataFormats.StringFormat, Result);
+            Clipboard.SetText(Result);
         }
 
-        public void Close()
+        public void Open()
+        {
+            Process.Start(Result);
+        }
+
+        public void Cancel()
         {
             _eventAggregator.Publish(ScreenGrabberState.Sleep);
         }

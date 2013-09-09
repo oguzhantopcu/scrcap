@@ -2,7 +2,7 @@
 
 namespace EkranPaylas.Tasks.StartupTasks
 {
-    public class HtmlAgilityPackConfigurerTask : IStartupTask
+    public class HtmlAgilityPackStartupTask : IStartupTask
     {
         public int Priority
         {

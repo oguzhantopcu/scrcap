@@ -1,6 +1,7 @@
-﻿using System.Windows;
+﻿using System;
+using Caliburn.Core.InversionOfControl;
 using Caliburn.PresentationFramework.ApplicationModel;
-using EkranPaylas.Uploaders.Infra;
+using EkranPaylas.Core;
 using EkranPaylas.ViewModels;
 
 namespace EkranPaylas.Views
@@ -8,24 +9,37 @@ namespace EkranPaylas.Views
     /// <summary>
     /// Interaction logic for ResultView.xaml
     /// </summary>
-    public partial class ResultView : IHandle<ScreenGrabberState>, IHandle<UploadResult>
+    public partial class ResultView : IHandle<ScreenGrabberState>
     {
+        private readonly IEventAggregator _eventAggregator;
+
         public ResultView()
         {
             InitializeComponent();
+
+            _eventAggregator = ServiceLocator.Current.GetInstance<IEventAggregator>();
+
+            _eventAggregator.Subscribe(this);
+
+            if (string.IsNullOrEmpty(ServiceLocator.Current.GetInstance<ResultViewModel>().Result))
+                Title = "Error!";
         }
 
         public void Handle(ScreenGrabberState message)
         {
-            if (message == ScreenGrabberState.UploadComplete)
-                this.Show();
-
-            Visibility = message == ScreenGrabberState.UploadComplete ? Visibility.Visible : Visibility.Collapsed;
+            if(message == ScreenGrabberState.Sleep)
+                Close();
         }
 
-        public void Handle(UploadResult message)
+        public new ResultViewModel DataContext { get { return base.DataContext as ResultViewModel; } }
+
+        protected override void OnClosed(EventArgs e)
         {
-            
+            this.DataContext.Cancel();
+
+            _eventAggregator.Unsubscribe(this);
+
+            base.OnClosed(e);
         }
     }
 }
