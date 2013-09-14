@@ -1,8 +1,6 @@
 ﻿using System;
-using System.IO;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Forms;
 using System.Windows.Input;
 using Caliburn.Core.InversionOfControl;
 using Caliburn.PresentationFramework.ApplicationModel;
@@ -12,7 +10,6 @@ using EkranPaylas.Extensions;
 using EkranPaylas.Utilities;
 using EkranPaylas.ViewModels;
 using HorizontalAlignment = System.Windows.HorizontalAlignment;
-using KeyEventArgs = System.Windows.Input.KeyEventArgs;
 
 namespace EkranPaylas.Views
 {
@@ -27,9 +24,9 @@ namespace EkranPaylas.Views
         {
             _eventAggregator = ServiceLocator.Current.GetInstance<IEventAggregator>();
 
-            this.MaxWidth = this.Width = SystemParameters.PrimaryScreenWidth;
-            this.MaxHeight = this.Height = SystemParameters.PrimaryScreenHeight;
-            this.Top = this.Left = 0;
+            MaxWidth = Width = SystemParameters.PrimaryScreenWidth;
+            MaxHeight = Height = SystemParameters.PrimaryScreenHeight;
+            Top = Left = 0;
 
             _eventAggregator.Subscribe(this);
 
@@ -44,27 +41,7 @@ namespace EkranPaylas.Views
             }
         }
 
-        protected override void OnKeyUp(KeyEventArgs e)
-        {
-            base.OnKeyUp(e);
-
-            if (e.KeyboardDevice.Modifiers == ModifierKeys.Control)
-            {
-                if (e.Key == Key.S)
-                    SaveCurrent();
-            }
-        }
-
-        public void SaveCurrent()
-        {
-            var dialog = new SaveFileDialog();
-            if (System.Windows.Forms.DialogResult.OK == dialog.ShowDialog())
-            {
-                DataContext.Save(dialog.FileName);
-            }
-        }
-
-        protected override void OnMouseMove(System.Windows.Input.MouseEventArgs e)
+        protected override void OnMouseMove(MouseEventArgs e)
         {
             base.OnMouseMove(e);
 
@@ -102,7 +79,7 @@ namespace EkranPaylas.Views
             ToolBoxBorder.Opacity = ToolBoxBorder.IsMouseOver ? 1 : 0.5;
         }
 
-        protected override void OnMouseDown(System.Windows.Input.MouseButtonEventArgs e)
+        protected override void OnMouseDown(MouseButtonEventArgs e)
         {
             base.OnMouseDown(e);
 
@@ -127,11 +104,7 @@ namespace EkranPaylas.Views
 
         public void Handle(ScreenGrabberState message)
         {
-            Canvas.SetLeft(ContentSelector, 10000);
-            Canvas.SetTop(ContentSelector, 10000); 
-			
-			if(message != ScreenGrabberState.Select)
-				Close();
+            if (message != ScreenGrabberState.Select) Close();
         }
 
         protected override void OnClosed(EventArgs e)

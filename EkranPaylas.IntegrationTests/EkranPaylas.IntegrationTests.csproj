@@ -75,7 +75,7 @@
     <Compile Include="Data\ScreenShotRepositoryFacts.cs" />
     <Compile Include="Web\PostimgUploaderFacts.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Web\UploaderTest.cs" />
+    <Compile Include="Web\UploaderFacts.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />

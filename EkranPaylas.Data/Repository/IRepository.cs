@@ -20,12 +20,12 @@ namespace EkranPaylas.Data.Repository
      
         void Delete(T entity);
      
-        void Delete(Expression<Func<T, bool>> criteria);
+        //void Delete(Expression<Func<T, bool>> criteria);
      
         void DeleteAll();
       
         long Count();
       
-        bool Exists(Expression<Func<T, bool>> criteria);
+        //bool Exists(Expression<Func<T, bool>> criteria);
     }
 }

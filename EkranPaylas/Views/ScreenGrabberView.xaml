@@ -6,11 +6,11 @@
         xmlns:viewModels="clr-namespace:EkranPaylas.ViewModels"
         xmlns:Controls="clr-namespace:EkranPaylas.Controls"
         xmlns:cal="http://www.caliburnproject.org"
-        mc:Ignorable="d" RenderOptions.BitmapScalingMode="NearestNeighbor" SnapsToDevicePixels="True"
+        mc:Ignorable="d" RenderOptions.BitmapScalingMode="HighQuality" SnapsToDevicePixels="True"
         AllowsTransparency="True" Opacity="1"  
-        WindowStyle="None"
+        WindowStyle="None" Topmost="True" ShowInTaskbar="False"
         Title="Grab An Image" d:DataContext="{d:DesignInstance viewModels:ScreenGrabberViewModel}"
-        cal:Message.Attach="[Gesture Key: Escape] = [Action Cancel()]; [Gesture Key: C, Modifiers: Control] = [Action Copy()]; [Gesture Key: U, Modifiers: Control] = [Action StartUpload()]">
+        cal:Message.Attach="[Gesture Key: Escape] = [Action Cancel()]; [Gesture Key: C, Modifiers: Control] = [Action Copy()]; [Gesture Key: S, Modifiers: Control] = [Action Save()]; [Gesture Key: U, Modifiers: Control] = [Action StartUpload()]">
     <Window.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
@@ -30,18 +30,18 @@
         </Border.Background>
         <Grid>
             <Canvas Name="ContentSelectorContainer">
-                <Border Name="TopBorder" Height="{Binding Top, Mode=TwoWay}" Background="Black" Opacity="0.3"/>
-                <Border Name="LeftBorder" Width="{Binding Left, Mode=TwoWay}" Background="Black" Opacity="0.3"/>
+                <Border Name="TopBorder" Background="Black" Opacity="0.3"/>
+                <Border Name="LeftBorder" Background="Black" Opacity="0.3"/>
                 <Border Name="RightBorder" Background="Black" Opacity="0.3"/>
                 <Border Name="BottomBorder" Background="Black" Opacity="0.3"/>
-                <ContentControl Name="ContentSelector" Canvas.Left="60" Canvas.Top="100" Width="{Binding Width, Mode=TwoWay}" Height="{Binding Height, Mode=TwoWay}" Background="Transparent" Template="{StaticResource DesignerItemTemplate}"/>
+                <ContentControl Name="ContentSelector" Canvas.Left="{Binding Left, Mode=TwoWay}" Canvas.Top="{Binding Top, Mode=TwoWay}" Width="{Binding Width, Mode=TwoWay}" Height="{Binding Height, Mode=TwoWay}" Background="Transparent" Template="{StaticResource DesignerItemTemplate}"/>
                 <Border Name="ToolBoxBorder" Background="Gray">
                     <StackPanel Orientation="Horizontal">
                         <Button cal:Message.Attach="StartUpload">Upload</Button>
-                        <Button>Save</Button>
-                        <Button>Share</Button>
+                        <Button cal:Message.Attach="Save">Save</Button>
+                        <!--<Button>Share</Button>-->
                         <Button cal:Message.Attach="Copy">Copy</Button>
-                        <Button>Print</Button>
+                        <!--<Button>Print</Button>-->
                         <Button cal:Message.Attach="Cancel">Exit</Button>
                     </StackPanel>
                 </Border>

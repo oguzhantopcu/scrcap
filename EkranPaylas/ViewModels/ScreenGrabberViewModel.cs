@@ -2,6 +2,7 @@
 using System.Drawing;
 using System.Drawing.Imaging;
 using System.IO;
+using System.Windows.Forms;
 using System.Windows.Media.Imaging;
 using Caliburn.Core.InversionOfControl;
 using Caliburn.PresentationFramework;
@@ -39,7 +40,8 @@ namespace EkranPaylas.ViewModels
         public double Height { get; set; }
 
         public ScreenGrabberViewModel(IEventAggregator eventAggregator, IScreenGrabber screenGrabber,
-            IUploaderFactory upladerFactory, IWindowManager windowManager, IDispatcher dispatcher, IStateHolder stateHolder)
+            IUploaderFactory upladerFactory, IWindowManager windowManager, IDispatcher dispatcher,
+            IStateHolder stateHolder)
         {
             _eventAggregator = eventAggregator;
             _screenGrabber = screenGrabber;
@@ -70,6 +72,8 @@ namespace EkranPaylas.ViewModels
                     BitmapImage.StreamSource = memoryStream;
                     BitmapImage.EndInit();
                 }
+                Left = Top = -1;
+                Height = Width = 1;
 
                 base.NotifyOfPropertyChange(() => BitmapImage);
             }
@@ -85,7 +89,7 @@ namespace EkranPaylas.ViewModels
                 _windowManager.ShowWindow(ServiceLocator.Current.GetInstance<ResultViewModel>(), null);
 
                 _eventAggregator.Publish(ScreenGrabberState.UploadComplete);
-                _eventAggregator.Publish(result); 
+                _eventAggregator.Publish(result);
             });
 
             _windowManager.ShowWindow(ServiceLocator.Current.GetInstance<UploaderViewModel>(), null);
@@ -110,6 +114,13 @@ namespace EkranPaylas.ViewModels
             return BitmapImage
                 .Select()
                 .Select(Convert.ToInt32(Left), Convert.ToInt32(Top), Convert.ToInt32(Width), Convert.ToInt32(Height));
+        }
+
+        public void Save()
+        {
+            using(var dialog = new SaveFileDialog())
+                if (DialogResult.OK == dialog.ShowDialog())
+                    Save(dialog.FileName);
         }
 
         public void Save(string location)

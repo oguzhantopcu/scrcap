@@ -23,12 +23,12 @@ namespace EkranPaylas.Uploaders
 
         protected string ServiceAddress
         {
-            get { return "http://31.169.92.132"; }
+            get { return "http://localhost:6789"; }
         }
 
         protected string HostAddress
         {
-            get { return "http://ekranpaylas.com"; }
+            get { return "http://localhost:6789"; }
         }
 
         protected string NewPath

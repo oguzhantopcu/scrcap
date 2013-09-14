@@ -19,6 +19,7 @@ namespace EkranPaylas.FrontEnd.Controllers
             return View(links);
         }
 
+        [HttpPost]
         public JsonResult New(string[] uris)
         {
             return Json(_screenShotService.New(uris));

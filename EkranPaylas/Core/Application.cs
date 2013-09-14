@@ -1,7 +1,5 @@
-﻿using System;
-using System.Linq;
+﻿using System.Linq;
 using System.Windows;
-using Caliburn.Core.Configuration;
 using Caliburn.Core.InversionOfControl;
 using Caliburn.PresentationFramework.ApplicationModel;
 using Caliburn.Windsor;
@@ -43,6 +41,8 @@ namespace EkranPaylas.Core
             _container.Register(Component.For<IUploaderFactory, ImageUploaderFactory>().LifestyleSingleton());
             _container.Register(Component.For<IScreenGrabber, ScreenGrabber>().LifestyleSingleton());
             _container.Register(Component.For<IStateHolder, StateHolder>().LifestyleSingleton());
+            _container.Register(Component.For<IApplicationStarter, ClickOnceStarter>().LifestyleSingleton());
+            _container.Register(Component.For<IApplicationUpdater, ClickOnceUpdater>().LifestyleSingleton());
 
             _container.Register(Classes.FromThisAssembly()
                 .Where(x => x.Name.EndsWith("Uploader"))

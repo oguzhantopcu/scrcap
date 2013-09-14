@@ -65,6 +65,7 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Deployment" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Windows.Interactivity, Version=3.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
@@ -82,20 +83,23 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="Core\EpApplication.cs" />
+    <Compile Include="Core\Application.cs" />
     <Compile Include="Extensions\AssemblyExtensions.cs" />
     <Compile Include="Extensions\BitmapExtensions.cs" />
     <Compile Include="Extensions\BitmapImageExtensions.cs" />
     <Compile Include="Extensions\DateTimeExtensions.cs" />
     <Compile Include="Extensions\DependencyObjectExtensions.cs" />
     <Compile Include="Extensions\ImageExtensions.cs" />
-    <Compile Include="Extensions\VisualExtensions.cs" />
+    <Compile Include="Extensions\FrameworkElementExtensions.cs" />
     <Compile Include="Graphic\IScreenGrabber.cs" />
     <Compile Include="Graphic\ScreenGrabber.cs" />
     <Compile Include="Core\ServiceLocator.cs" />
+    <Compile Include="Tasks\StartupTasks\ApplicationUpdaterTask.cs" />
     <Compile Include="Tasks\StartupTasks\HtmlAgilityPackStartupTask.cs" />
     <Compile Include="Tasks\StartupTasks\IStartupTask.cs" />
     <Compile Include="Tasks\StartupTasks\KeyboardHookStartupTask.cs" />
+    <Compile Include="Tasks\StartupTasks\NotifyIconStartupTask.cs" />
+    <Compile Include="Tasks\StartupTasks\SetStartupStartupTask.cs" />
     <Compile Include="Uploaders\EkranPaylasUploader.cs" />
     <Compile Include="Uploaders\Infra\ImageUploaderFactory.cs" />
     <Compile Include="Uploaders\PostimgUploader.cs" />
@@ -108,6 +112,10 @@
     <Compile Include="Controls\MoveThumb.cs" />
     <Compile Include="Controls\ResizeThumb.cs" />
     <Compile Include="Uploaders\Infra\Uploader.cs" />
+    <Compile Include="Utilities\IApplicationStarter.cs" />
+    <Compile Include="Utilities\ClickOnceStarter.cs" />
+    <Compile Include="Utilities\ClickOnceUpdater.cs" />
+    <Compile Include="Utilities\IApplicationUpdater.cs" />
     <Compile Include="Utilities\IStateHolder.cs" />
     <Compile Include="Utilities\MouseOperations.cs" />
     <Compile Include="Utilities\RotateThumb.cs" />
@@ -139,10 +147,6 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Compile Include="App.xaml.cs">
-      <DependentUpon>App.xaml</DependentUpon>
-      <SubType>Code</SubType>
-    </Compile>
     <Compile Include="Views\UploaderView.xaml.cs">
       <DependentUpon>UploaderView.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -190,6 +194,11 @@
       <Project>{F52AA97E-180A-40ED-8F2B-09080171D6C7}</Project>
       <Name>EkranPaylas.Hook</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="cloud_off.ico">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(SolutionDir)\.nuget\nuget.targets" />

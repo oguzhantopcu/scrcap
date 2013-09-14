@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
-namespace EkranPaylas.FrontEnd
+﻿namespace EkranPaylas.FrontEnd.App_Start
 {
     public static class AuthConfig
     {

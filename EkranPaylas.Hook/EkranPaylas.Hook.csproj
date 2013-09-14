@@ -196,11 +196,12 @@
     </Compile>
     <Compile Include="BaseHookListener.cs" />
     <Compile Include="KeyPressEventArgsExt.cs" />
+    <Compile Include="WinApi\AppMouseStruct.cs" />
     <Compile Include="WinApi\Mouse.cs" />
     <Compile Include="MouseHookListener.cs" />
     <Compile Include="WinApi\AppHooker.cs" />
     <Compile Include="WinApi\GlobalHooker.cs" />
-    <Compile Include="WinApi\MouseStructures.cs" />
+    <Compile Include="WinApi\MouseStruct.cs" />
     <Compile Include="WinApi\KeyboardHookStruct.cs" />
     <Compile Include="KeyEventArgsExt.cs" />
     <Compile Include="WinApi\Point.cs" />

@@ -1,4 +1,5 @@
-﻿using System.Diagnostics;
+﻿using System;
+using System.Diagnostics;
 using System.Windows;
 using Caliburn.PresentationFramework;
 using Caliburn.PresentationFramework.ApplicationModel;
@@ -42,7 +43,8 @@ namespace EkranPaylas.ViewModels
 
         public void Open()
         {
-            Process.Start(Result);
+            if (Uri.IsWellFormedUriString(Result, UriKind.Absolute))
+                Process.Start(Result);
         }
 
         public void Cancel()

@@ -14,7 +14,6 @@
                 <Border Width="10"></Border>
                 <Button HorizontalAlignment="Left" Width="70" cal:Message.Attach="Open"  Content="Open"></Button>
             </StackPanel>
-
             <TextBox HorizontalAlignment="Right" Text="{Binding Result}" Width="176"/>
         </Grid>
     </Grid>
