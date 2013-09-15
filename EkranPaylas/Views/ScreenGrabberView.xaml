@@ -38,7 +38,10 @@
                 <Border Name="ToolBoxBorder" Background="Gray">
                     <StackPanel Orientation="Horizontal">
                         <Button cal:Message.Attach="StartUpload">Upload</Button>
+                        <Button cal:Message.Attach="SaveAndEdit">SaveAndEdit</Button>
                         <Button cal:Message.Attach="Save">Save</Button>
+                        <Button cal:Message.Attach="EditAndUpload">EditAnUpload</Button>
+
                         <!--<Button>Share</Button>-->
                         <Button cal:Message.Attach="Copy">Copy</Button>
                         <!--<Button>Print</Button>-->

@@ -5,12 +5,18 @@ using System.Net;
 using EkranPaylas.UnitTests;
 using EkranPaylas.Uploaders.Infra;
 using Ploeh.AutoFixture;
+using RestSharp;
 using Xunit;
 
 namespace EkranPaylas.IntegrationTests.Web
 {
     public abstract class UploaderFacts<TUploader> : FixtureTestBase where TUploader : IUploader
     {
+        protected UploaderFacts()
+        {
+            this.Register<IRestClient>(() => new RestClient());
+        }
+
         public virtual IUploader GenerateUploader()
         {
             return this.Create<TUploader>();

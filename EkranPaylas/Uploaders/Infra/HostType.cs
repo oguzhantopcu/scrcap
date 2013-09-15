@@ -5,6 +5,7 @@
         //Imageshack,
         //Tinypic,
         EkranPaylasHost,
-        Postimg
+        //Postimg,
+        Imgur
     }
 }

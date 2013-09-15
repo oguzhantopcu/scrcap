@@ -1,7 +1,9 @@
 ﻿using System;
+using System.Diagnostics;
 using System.Drawing;
 using System.Drawing.Imaging;
 using System.IO;
+using System.Threading;
 using System.Windows.Forms;
 using System.Windows.Media.Imaging;
 using Caliburn.Core.InversionOfControl;
@@ -24,6 +26,7 @@ namespace EkranPaylas.ViewModels
         private readonly IWindowManager _windowManager;
         private readonly IDispatcher _dispatcher;
         private readonly IStateHolder _stateHolder;
+        private readonly string _editorPath;
 
         public IProgress<UploadResult> CurrentProgress { get; set; }
 
@@ -51,6 +54,8 @@ namespace EkranPaylas.ViewModels
             _stateHolder = stateHolder;
 
             _eventAggregator.Subscribe(this);
+
+            _editorPath = Path.Combine(Environment.GetEnvironmentVariable("windir"), "System32\\mspaint.exe");
         }
 
         public void Handle(ScreenGrabberState message)
@@ -81,9 +86,14 @@ namespace EkranPaylas.ViewModels
 
         public void StartUpload()
         {
+            StartUpload(SelectImage().GetBuffer());
+        }
+
+        public void StartUpload(byte[] image)
+        {
             var uploader = _upladerFactory.GetUploader(HostType.EkranPaylasHost);
 
-            CurrentProgress = uploader.StartUpload(SelectImage().GetBuffer(), Guid.NewGuid() + ".png");
+            CurrentProgress = uploader.StartUpload(image, Guid.NewGuid() + ".png");
             CurrentProgress.Completed += result => _dispatcher.ExecuteOnUIThread(() =>
             {
                 _windowManager.ShowWindow(ServiceLocator.Current.GetInstance<ResultViewModel>(), null);
@@ -99,7 +109,7 @@ namespace EkranPaylas.ViewModels
 
         public void Copy()
         {
-            System.Windows.Forms.Clipboard.SetImage(SelectImage());
+            Clipboard.SetImage(SelectImage());
 
             Cancel();
         }
@@ -116,11 +126,22 @@ namespace EkranPaylas.ViewModels
                 .Select(Convert.ToInt32(Left), Convert.ToInt32(Top), Convert.ToInt32(Width), Convert.ToInt32(Height));
         }
 
-        public void Save()
+        public string Save()
         {
-            using(var dialog = new SaveFileDialog())
+            using(var dialog = new SaveFileDialog {Filter = "Image Files (*.png, *.jpg)|*.png;*.jpg"})
                 if (DialogResult.OK == dialog.ShowDialog())
+                {
                     Save(dialog.FileName);
+                    return dialog.FileName;
+                }
+            return "";
+        }
+
+        public void SaveAndEdit()
+        {
+            var res = Save();
+            if (File.Exists(res))
+                Process.Start(_editorPath, res);
         }
 
         public void Save(string location)
@@ -130,6 +151,19 @@ namespace EkranPaylas.ViewModels
             SelectImage().Save(location, ImageFormat.Png);
 
             Cancel();
+        }
+
+        public void EditAndUpload()
+        {
+            var imagePath = Path.Combine(Environment.GetEnvironmentVariable("TEMP"), "EkranPaylas.png");
+            SelectImage().Save(imagePath);
+            ThreadPool.QueueUserWorkItem(q =>
+            {
+                _eventAggregator.Publish(ScreenGrabberState.Sleep);
+                var process = Process.Start(_editorPath, imagePath);
+                if (process != null) process.WaitForExit(); else return;
+                _dispatcher.ExecuteOnUIThread(() => StartUpload(File.ReadAllBytes(imagePath)));
+            });
         }
     }
 }
