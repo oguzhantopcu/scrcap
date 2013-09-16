@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using Newtonsoft.Json.Linq;
 using RestSharp;
 
@@ -20,11 +21,13 @@ namespace EkranPaylas.Uploaders.Infra
 
         public override string Upload(byte[] data, string fileName)
         {
-            var request = new RestRequest { Method = Method.POST, Resource = "https://api.imgur.com/3/image.json" };
+            var request = new RestRequest {Method = Method.POST, Resource = "https://api.imgur.com/3/image.json"};
             request.AddHeader("Authorization", "Client-ID 0b6a8a897f2b253");
-            request.AddParameter("image", Convert.ToBase64String(data));
+            request.AddFile("image", data, "sometinh");
 
-            var res = JObject.Parse(_restClient.Execute(request).Content);
+            var result = _restClient.Post(request);
+            var res = JObject.Parse(result.Content);
+
             return res["data"]["link"].ToString();
         }
     }

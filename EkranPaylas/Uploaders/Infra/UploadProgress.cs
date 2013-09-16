@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using System.Threading;
 
 namespace EkranPaylas.Uploaders.Infra
@@ -19,11 +20,11 @@ namespace EkranPaylas.Uploaders.Infra
 
         public void ExecuteAsync()
         {
-            _thread = new Thread(Proc);
+            _thread = new Thread(() => Proc());
             _thread.Start();
         }
 
-        protected void Proc()
+        protected void Proc(int retryCount = 3)
         {
             try
             {
@@ -33,7 +34,11 @@ namespace EkranPaylas.Uploaders.Infra
             }
             catch (Exception x)
             {
-                Completed(null);
+                File.WriteAllText(Environment.GetEnvironmentVariable("APPDATA") + "\\" + "error.txt",
+                    x.Message + ":" + (x.InnerException != null ? x.InnerException.Message : ""));
+                if (retryCount-- > 0)
+                    Proc(retryCount);
+                else Completed(null);
             }
         }
 

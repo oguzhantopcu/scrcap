@@ -1,7 +1,9 @@
 ﻿using System;
+using System.Windows;
 using Caliburn.Core.InversionOfControl;
 using Caliburn.PresentationFramework.ApplicationModel;
 using EkranPaylas.Core;
+using EkranPaylas.Uploaders.Infra;
 using EkranPaylas.ViewModels;
 
 namespace EkranPaylas.Views
@@ -9,7 +11,7 @@ namespace EkranPaylas.Views
     /// <summary>
     /// Interaction logic for ResultView.xaml
     /// </summary>
-    public partial class ResultView : IHandle<ScreenGrabberState>
+    public partial class ResultView : IHandle<ScreenGrabberState>, IHandle<UploadResult>
     {
         private readonly IEventAggregator _eventAggregator;
 
@@ -21,13 +23,20 @@ namespace EkranPaylas.Views
 
             _eventAggregator.Subscribe(this);
 
-            if (string.IsNullOrEmpty(ServiceLocator.Current.GetInstance<ResultViewModel>().Result))
-                Title = "Error!";
+            SetTitle();
+        }
+
+
+        public void SetTitle()
+        {
+            Title = string.IsNullOrEmpty(ServiceLocator.Current.GetInstance<ResultViewModel>().Result) ? "Error!" : "Success";
         }
 
         public void Handle(ScreenGrabberState message)
         {
-            if(message == ScreenGrabberState.Sleep)
+            SetTitle();
+
+            if (message == ScreenGrabberState.Sleep)
                 Close();
         }
 
@@ -40,6 +49,11 @@ namespace EkranPaylas.Views
             _eventAggregator.Unsubscribe(this);
 
             base.OnClosed(e);
+        }
+
+        public void Handle(UploadResult message)
+        {
+            SetTitle();
         }
     }
 }

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using Castle.Core.Internal;
 using EkranPaylas.Uploaders.Infra;
 using RestSharp;
 
@@ -23,17 +24,17 @@ namespace EkranPaylas.Uploaders
 
         protected string ServiceAddress
         {
-            get { return "http://localhost:6789"; }
+            get { return "http://ekranpaylas.com"; }
         }
 
         protected string HostAddress
         {
-            get { return "http://localhost:6789"; }
+            get { return "http://ekranpaylas.com"; }
         }
 
         protected string NewPath
         {
-            get { return "/New"; }
+            get { return "/Link/New"; }
         }
 
         public override string Upload(byte[] data, string fileName)
@@ -45,13 +46,13 @@ namespace EkranPaylas.Uploaders
                 .Select(q => q.Upload(data, fileName))
                 .ToArray();
 
-            return links.First();
+            //return links.First();
 
             var request = new RestRequest {Method = Method.POST, Resource = ServiceAddress + NewPath};
-            request.AddParameter("links", links);
+            links.ForEach(q => request.AddParameter("links", q));
             var response = _restClient.Execute(request);
 
-            return HostAddress + "/" + response.Content;
+            return HostAddress + "/" + response.Content.Replace("\"", "");
         }
     }
 }

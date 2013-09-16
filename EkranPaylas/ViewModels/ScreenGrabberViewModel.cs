@@ -98,8 +98,8 @@ namespace EkranPaylas.ViewModels
             {
                 _windowManager.ShowWindow(ServiceLocator.Current.GetInstance<ResultViewModel>(), null);
 
-                _eventAggregator.Publish(ScreenGrabberState.UploadComplete);
                 _eventAggregator.Publish(result);
+                _eventAggregator.Publish(ScreenGrabberState.UploadComplete);
             });
 
             _windowManager.ShowWindow(ServiceLocator.Current.GetInstance<UploaderViewModel>(), null);
