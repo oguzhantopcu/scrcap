@@ -32,6 +32,10 @@ namespace EkranPaylas.Uploaders.Infra
 
                 Completed(result);
             }
+            catch (ThreadAbortException ex)
+            {
+                
+            }
             catch (Exception x)
             {
                 File.WriteAllText(Environment.GetEnvironmentVariable("APPDATA") + "\\" + "error.txt",

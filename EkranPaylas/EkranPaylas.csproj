@@ -69,7 +69,7 @@
     <SignManifests>true</SignManifests>
   </PropertyGroup>
   <PropertyGroup>
-    <SignAssembly>true</SignAssembly>
+    <SignAssembly>false</SignAssembly>
   </PropertyGroup>
   <PropertyGroup>
     <AssemblyOriginatorKeyFile>EkranPaylas_TemporaryKey.pfx</AssemblyOriginatorKeyFile>
@@ -256,6 +256,15 @@
     <Content Include="cloud_off.ico">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Resource Include="Media\cikis.png" />
+    <Resource Include="Media\duzenlekaydet.png" />
+    <Resource Include="Media\duzenleyukle.png" />
+    <Resource Include="Media\facebook.png" />
+    <Resource Include="Media\kaydet.png" />
+    <Resource Include="Media\kopyala.png" />
+    <Resource Include="Media\twitter.png" />
+    <Resource Include="Media\yazdir.png" />
+    <Resource Include="Media\yukle.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(SolutionDir)\.nuget\nuget.targets" />

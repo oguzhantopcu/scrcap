@@ -2,12 +2,12 @@
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:viewModels="clr-namespace:EkranPaylas.ViewModels"
         xmlns:Controls="clr-namespace:EkranPaylas.Controls"
         xmlns:cal="http://www.caliburnproject.org"
         mc:Ignorable="d" RenderOptions.BitmapScalingMode="HighQuality" SnapsToDevicePixels="True"
-        AllowsTransparency="True" Opacity="1"  
+        AllowsTransparency="True" Opacity="1"
         WindowStyle="None" Topmost="True" ShowInTaskbar="False"
         Title="Grab An Image" d:DataContext="{d:DesignInstance viewModels:ScreenGrabberViewModel}"
         cal:Message.Attach="[Gesture Key: Escape] = [Action Cancel()]; [Gesture Key: C, Modifiers: Control] = [Action Copy()]; [Gesture Key: S, Modifiers: Control] = [Action Save()]; [Gesture Key: U, Modifiers: Control] = [Action StartUpload()]">
@@ -18,34 +18,65 @@
             </ResourceDictionary.MergedDictionaries>
             <ControlTemplate x:Key="DesignerItemTemplate" TargetType="ContentControl">
                 <Grid DataContext="{Binding RelativeSource={RelativeSource TemplatedParent}}">
-                    <Controls:MoveThumb Template="{StaticResource MoveThumbTemplate}" Background="{TemplateBinding Background}" Cursor="SizeAll"/>
-                    <Control x:Name="Resizers" Template="{StaticResource ResizeDecoratorTemplate}"/>
+                    <Controls:MoveThumb Template="{StaticResource MoveThumbTemplate}"
+                                        Background="{TemplateBinding Background}" Cursor="SizeAll" />
+                    <Control x:Name="Resizers" Template="{StaticResource ResizeDecoratorTemplate}" />
                 </Grid>
             </ControlTemplate>
         </ResourceDictionary>
     </Window.Resources>
-        <Border>
+    <Border>
         <Border.Background>
-            <ImageBrush Stretch="None" AlignmentX="Left" AlignmentY="Top" ImageSource="{Binding BitmapImage}"/>
+            <ImageBrush Stretch="None" AlignmentX="Left" AlignmentY="Top" ImageSource="{Binding BitmapImage}" />
         </Border.Background>
         <Grid>
             <Canvas Name="ContentSelectorContainer">
-                <Border Name="TopBorder" Background="Black" Opacity="0.3"/>
-                <Border Name="LeftBorder" Background="Black" Opacity="0.3"/>
-                <Border Name="RightBorder" Background="Black" Opacity="0.3"/>
-                <Border Name="BottomBorder" Background="Black" Opacity="0.3"/>
-                <ContentControl Name="ContentSelector" Canvas.Left="{Binding Left, Mode=TwoWay}" Canvas.Top="{Binding Top, Mode=TwoWay}" Width="{Binding Width, Mode=TwoWay}" Height="{Binding Height, Mode=TwoWay}" Background="Transparent" Template="{StaticResource DesignerItemTemplate}"/>
-                <Border Name="ToolBoxBorder" Background="Gray">
+                <Border Name="TopBorder" Background="Black" Opacity="0.3" />
+                <Border Name="LeftBorder" Background="Black" Opacity="0.3" />
+                <Border Name="RightBorder" Background="Black" Opacity="0.3" />
+                <Border Name="BottomBorder" Background="Black" Opacity="0.3" />
+                <ContentControl Name="ContentSelector" Canvas.Left="{Binding Left, Mode=TwoWay}"
+                                Canvas.Top="{Binding Top, Mode=TwoWay}" Width="{Binding Width, Mode=TwoWay}"
+                                Height="{Binding Height, Mode=TwoWay}" Background="Transparent"
+                                Template="{StaticResource DesignerItemTemplate}" />
+                <Border Name="ToolBoxBorder">
+                    <Border.Resources>
+                        <ControlTemplate x:Key="Button" TargetType="Button">
+                            <Border Background="{TemplateBinding Background}" Cursor="Hand"/>
+                        </ControlTemplate>
+                    </Border.Resources>
                     <StackPanel Orientation="Horizontal">
-                        <Button cal:Message.Attach="StartUpload">Upload</Button>
-                        <Button cal:Message.Attach="SaveAndEdit">SaveAndEdit</Button>
-                        <Button cal:Message.Attach="Save">Save</Button>
-                        <Button cal:Message.Attach="EditAndUpload">EditAnUpload</Button>
-
-                        <!--<Button>Share</Button>-->
-                        <Button cal:Message.Attach="Copy">Copy</Button>
-                        <!--<Button>Print</Button>-->
-                        <Button cal:Message.Attach="Cancel">Exit</Button>
+                        <Button cal:Message.Attach="StartUpload" Template="{StaticResource Button}"
+                                Width="25" Height="25" ToolTip="Yükle">
+                            <Button.Background>
+                                <ImageBrush ImageSource="/Media/yukle.png" />
+                            </Button.Background>
+                        </Button>
+                        <Button Width="25" Height="25" cal:Message.Attach="SaveAndEdit" ToolTip="Kaydet ve düzenle" Template="{StaticResource Button}"> 
+                            <Button.Background>
+                                <ImageBrush ImageSource="/Media/duzenlekaydet.png" />
+                            </Button.Background>
+                        </Button>
+                        <Button cal:Message.Attach="Save" ToolTip="Kaydet" Template ="{StaticResource Button}">
+                            <Button.Background>
+                                <ImageBrush ImageSource="/Media/kaydet.png" />
+                            </Button.Background>
+                        </Button>
+                        <Button Width="25" Height="25" cal:Message.Attach="EditAndUpload" ToolTip="Düzenle ve yükle" Template="{StaticResource Button}"> 
+                            <Button.Background>
+                                <ImageBrush ImageSource="/Media/duzenleyukle.png" />
+                            </Button.Background>
+                        </Button>
+                        <Button Width="25" Height="25" cal:Message.Attach="Copy" ToolTip="Kopyala" Template="{StaticResource Button}">
+                            <Button.Background>
+                                <ImageBrush ImageSource="/Media/kopyala.png" />
+                            </Button.Background>
+                        </Button>
+                        <Button Width="25" Height="25" cal:Message.Attach="Cancel" ToolTip="Kapat" Template="{StaticResource Button}">
+                            <Button.Background>
+                                <ImageBrush ImageSource="/Media/cikis.png" />
+                            </Button.Background>
+                        </Button>                    
                     </StackPanel>
                 </Border>
             </Canvas>
