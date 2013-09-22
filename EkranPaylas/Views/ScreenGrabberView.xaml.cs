@@ -76,7 +76,7 @@ namespace EkranPaylas.Views
             Canvas.SetBottom(ToolBoxBorder, SystemParameters.PrimaryScreenHeight - top + 10);
             Canvas.SetRight(ToolBoxBorder, SystemParameters.PrimaryScreenWidth - left + 10);
 
-            ToolBoxBorder.Opacity = ToolBoxBorder.IsMouseOver ? 1 : 0.5;
+            ToolBoxBorder.Opacity = ToolBoxBorder.IsMouseOver ? 1 : 0.75;
         }
 
         protected override void OnMouseDown(MouseButtonEventArgs e)

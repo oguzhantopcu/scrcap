@@ -21,7 +21,7 @@ namespace EkranPaylas.Service
             switch (options)
             {
                 case StringGenerateOptions.IncludeChars:
-                    _alphabetProvider.GetAlphabet().ToList().ForEach(i => data.Add(i));
+                    _alphabetProvider.GetAlphabet().ForEach(i => data.Add(i));
                     break;
                 case StringGenerateOptions.IncludeDigits:
                     _digits.ForEach(i => data.Add(i));
