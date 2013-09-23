@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq.Expressions;
+﻿using System.Collections.Generic;
 
 namespace EkranPaylas.Data.Repository
 {
@@ -20,12 +18,8 @@ namespace EkranPaylas.Data.Repository
      
         void Delete(T entity);
      
-        //void Delete(Expression<Func<T, bool>> criteria);
-     
         void DeleteAll();
       
         long Count();
-      
-        //bool Exists(Expression<Func<T, bool>> criteria);
-    }
+     }
 }
