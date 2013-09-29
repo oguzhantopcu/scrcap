@@ -51,5 +51,15 @@ namespace EkranPaylas.ViewModels
         {
             _eventAggregator.Publish(ScreenGrabberState.Sleep);
         }
+
+        public void Facebook()
+        {
+            Process.Start("http://www.facebook.com/sharer.php?u=" + Result);
+        }
+
+        public void Twitter()
+        {
+            Process.Start("https://twitter.com/intent/tweet?source=webclient&text=" + Result);
+        }
     }
 }

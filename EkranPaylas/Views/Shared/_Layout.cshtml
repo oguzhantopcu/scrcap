@@ -1,0 +1,57 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"> 
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+		@OpenGraph()
+        <title>Ekran Paylaş</title>
+        <link href="style.css" rel="stylesheet" type="text/css">
+        @Styles.Render("~/Content/css")
+        @Scripts.Render("~/bundles/modernizr")
+    </head>
+    <body>
+        <div class="header">
+            <div class="header-ortala">
+                <div class="logo"><a href="/"><img src="/Content/images/logo.png" width="174" height="27" alt="logo"></a></div>
+                <a href="/installer/setup.exe" class="freetrial"></a>
+            </div>
+        </div>
+        <div class="container">
+            @RenderBody()
+        </div>
+        <div class="footer-bg">
+            <div class="foot-ortala">
+                <div class="copy">
+                    <span class="logo-foot"><a href="#"><img src="/Content/images/footer-logo.png" width="174" height="27" alt="logo"></a></span>
+                    <span class="text-foot"><strong>Copyrgiht</strong> 2011 Tüm Hakları Saklıdır</span>
+                </div>
+                <div class="foot-links">
+                    <ul>
+                        <li><a href="/Home/Faq"> Daha Fazla Bilgi</a></li>
+                        <li><a href="/Home/Faq">Sık Sorulalan Sorular</a></li>
+                        <li><a href="/ekranpaylas.application">Download</a></li>
+                        <li><a href="sartlar.html">Şartlar &amp; Koşullar</a></li>
+                        <li><a href="/">Anasayfa</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </body>
+@*    @Scripts.Render("~/bundles/jquery")*@
+@*    @RenderSection("scripts", required: false)*@
+
+@helper OpenGraph()
+{
+    var bag = ((WebViewPage)WebPageContext.Current.Page).ViewBag;
+    <meta property="og:title" content="@bag.Title" />
+	if(bag.Description != null){
+    <meta property="og:description" content="@bag.Description" />}
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="@WebPageContext.Current.Page.Context.Request.Url.ToString()" />
+    <meta property="og:site_name" content="Ekran Paylas" />
+    <meta property="og:image" content="@(bag.ImageUrl ?? @WebPageContext.Current.Page.Href("~/Content/Images/logo.png"))" />
+    if (bag.Description != null)
+    {
+        <meta property="og:description" content="@bag.Description" />
+    }
+	}
+</html>

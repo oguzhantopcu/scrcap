@@ -76,7 +76,7 @@
                             <Button.Background>
                                 <ImageBrush ImageSource="/Media/cikis.png" />
                             </Button.Background>
-                        </Button>                    
+                        </Button>
                     </StackPanel>
                 </Border>
             </Canvas>

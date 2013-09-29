@@ -6,15 +6,20 @@
         xmlns:viewModels="clr-namespace:EkranPaylas.ViewModels"
         xmlns:cal="http://www.caliburnproject.org" WindowStyle="SingleBorderWindow" ResizeMode="NoResize"
         mc:Ignorable="d" Title="Success"
-        Height="80" Width="370" d:DataContext="{d:DesignInstance viewModels:ResultViewModel}">
+        Height="80" Width="385" d:DataContext="{d:DesignInstance viewModels:ResultViewModel}">
     <Grid>
         <Grid Margin="10">
             <StackPanel Orientation="Horizontal">
-                <Button HorizontalAlignment="Left" Width="70" cal:Message.Attach="Copy"   Content="Copy"></Button>
+                <Button HorizontalAlignment="Left" Width="50" cal:Message.Attach="Copy"   Content="Copy"></Button>
                 <Border Width="10"></Border>
-                <Button HorizontalAlignment="Left" Width="70" cal:Message.Attach="Open"  Content="Open"></Button>
+                <Button HorizontalAlignment="Left" Width="50" cal:Message.Attach="Open"  Content="Open"></Button>
+                <Border Width="10"></Border>
+                <TextBox HorizontalAlignment="Right" Text="{Binding Result}" Width="176"/>
+                <Border Width="10"/>
+                <Button HorizontalAlignment="Left" Width="24" cal:Message.Attach="Facebook" Content="FB"></Button>
+                <Border Width="5"></Border>
+                <Button HorizontalAlignment="Left" Width="24" cal:Message.Attach="Twitter" Content="TW"></Button>
             </StackPanel>
-            <TextBox HorizontalAlignment="Right" Text="{Binding Result}" Width="176"/>
         </Grid>
     </Grid>
 </Window>

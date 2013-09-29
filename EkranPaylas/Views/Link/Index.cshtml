@@ -1,0 +1,15 @@
+﻿@model string[]
+
+@{
+    ViewBag.Title = "Ekran Paylaş";
+	ViewBag.ImageUrl = Model.First();
+	ViewBag.Description = "Ekran Paylaş İle Çekildi";
+}
+<div>
+    <div class="welcome">
+        <div class="screen-image"><img src="@Model.First()" alt="ada"></div>
+        <span class="cekildi">Ekran Paylaş İle Çekildi</span>
+        <br clear="all">
+    </div>
+    <br clear="all">
+</div>
