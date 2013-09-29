@@ -4,21 +4,32 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:viewModels="clr-namespace:EkranPaylas.ViewModels"
-        xmlns:cal="http://www.caliburnproject.org" WindowStyle="SingleBorderWindow" ResizeMode="NoResize"
-        mc:Ignorable="d" Title="Success"
-        Height="80" Width="385" d:DataContext="{d:DesignInstance viewModels:ResultViewModel}">
+        xmlns:cal="http://www.caliburnproject.org"
+        xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
+        WindowStyle="SingleBorderWindow" ResizeMode="NoResize"
+        mc:Ignorable="d" Title="Başarılı!" SizeToContent="WidthAndHeight"  d:DataContext="{d:DesignInstance viewModels:ResultViewModel}">
     <Grid>
         <Grid Margin="10">
             <StackPanel Orientation="Horizontal">
-                <Button HorizontalAlignment="Left" Width="50" cal:Message.Attach="Copy"   Content="Copy"></Button>
+                <Button HorizontalAlignment="Left" Width="50" cal:Message.Attach="Copy"   Content="Kopyala"></Button>
                 <Border Width="10"></Border>
-                <Button HorizontalAlignment="Left" Width="50" cal:Message.Attach="Open"  Content="Open"></Button>
+                <Button HorizontalAlignment="Left" Width="50" cal:Message.Attach="Open"  Content="Aç"></Button>
                 <Border Width="10"></Border>
                 <TextBox HorizontalAlignment="Right" Text="{Binding Result}" Width="176"/>
                 <Border Width="10"/>
-                <Button HorizontalAlignment="Left" Width="24" cal:Message.Attach="Facebook" Content="FB"></Button>
+                <xctk:DropDownButton Content="Paylaş">
+                    <xctk:DropDownButton.DropDownContent>
+                        <ToolBarTray Orientation="Vertical">
+                            <ToolBar IsOverflowOpen="True">
+                                <Button HorizontalAlignment="Stretch" cal:Message.Attach="Facebook" Content="Facebook"></Button>
+                                <Button HorizontalAlignment="Stretch" cal:Message.Attach="Twitter" Content="Twitter"></Button>
+                            </ToolBar>
+                        </ToolBarTray>
+
+                    </xctk:DropDownButton.DropDownContent>
+
+                </xctk:DropDownButton>
                 <Border Width="5"></Border>
-                <Button HorizontalAlignment="Left" Width="24" cal:Message.Attach="Twitter" Content="TW"></Button>
             </StackPanel>
         </Grid>
     </Grid>

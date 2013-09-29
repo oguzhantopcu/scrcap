@@ -31,14 +31,14 @@ namespace EkranPaylas.Tasks.StartupTasks
         {
             var notifyIcon = new NotifyIcon
             {
-                BalloonTipText = "Hey! Ekranpaylas is here!",
-                Text = "EkranPaylas",
+                BalloonTipText = "Hey! EkranPaylaş burada!",
+                Text = "EkranPaylaş",
                 Icon = new System.Drawing.Icon("cloud_off.ico"),
                 Visible = true,
                 ContextMenu = new ContextMenu(new[]
                 {
-                    new MenuItem("Select", (sender, args) => Select()),
-                    new MenuItem("Exit", (sender, args) => _mainViewModel.Exit())
+                    new MenuItem("Resim çek", (sender, args) => Select()),
+                    new MenuItem("Çıkış", (sender, args) => _mainViewModel.Exit())
                 }),
             };
             notifyIcon.Click += (sender, args) => Select();

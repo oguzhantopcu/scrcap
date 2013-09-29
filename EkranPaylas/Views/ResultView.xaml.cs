@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Windows;
 using Caliburn.Core.InversionOfControl;
 using Caliburn.PresentationFramework.ApplicationModel;
 using EkranPaylas.Core;
@@ -26,10 +25,9 @@ namespace EkranPaylas.Views
             SetTitle();
         }
 
-
         public void SetTitle()
         {
-            Title = string.IsNullOrEmpty(ServiceLocator.Current.GetInstance<ResultViewModel>().Result) ? "Error!" : "Success";
+            Title = string.IsNullOrEmpty(ServiceLocator.Current.GetInstance<ResultViewModel>().Result) ? "Hata!" : "Başarılı";
         }
 
         public void Handle(ScreenGrabberState message)

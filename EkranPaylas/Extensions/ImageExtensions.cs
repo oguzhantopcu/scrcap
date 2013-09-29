@@ -6,9 +6,8 @@ namespace EkranPaylas.Extensions
 {
     public static class ImageExtensions
     {
-        public static Image Select(this System.Drawing.Image originalImage, int left, int top, int width, int height)
+        public static Image Select(this Image originalImage, int left, int top, int width, int height)
         {
-            originalImage.Save("c:\\harc.png");
             var image = new Bitmap(width, height);
             using (var processer = Graphics.FromImage(image))
                 processer.DrawImage(originalImage, 0, 0, new Rectangle(left, top, width, height), GraphicsUnit.Pixel);
