@@ -1,8 +1,8 @@
 ﻿<Window x:Class="EkranPaylas.Views.UploaderView"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" 
         xmlns:cal="http://www.caliburnproject.org" WindowStyle="SingleBorderWindow" ResizeMode="NoResize" 
-        Title="Uploading..." Height="80" Width="290">
+        Title="Uploading..." Height="80" Width="290" Icon="../footer-logo.ico" >
     <Grid Margin="10">
         <Button HorizontalAlignment="Left" Width="70" cal:Message.Attach="Cancel"  Content="Cancel"></Button>
         <ProgressBar HorizontalAlignment="Right" IsIndeterminate="True" Width="176"/>

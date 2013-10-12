@@ -57,7 +57,7 @@
                                 <ImageBrush ImageSource="/Media/duzenlekaydet.png" />
                             </Button.Background>
                         </Button>
-                        <Button cal:Message.Attach="Save" ToolTip="Kaydet" Template ="{StaticResource Button}">
+                        <Button Width="25" Height="25" cal:Message.Attach="Save" ToolTip="Kaydet" Template ="{StaticResource Button}">
                             <Button.Background>
                                 <ImageBrush ImageSource="/Media/kaydet.png" />
                             </Button.Background>

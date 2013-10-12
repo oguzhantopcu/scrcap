@@ -33,7 +33,7 @@ namespace EkranPaylas.Tasks.StartupTasks
             {
                 BalloonTipText = "Hey! EkranPaylaş burada!",
                 Text = "EkranPaylaş",
-                Icon = new System.Drawing.Icon("cloud_off.ico"),
+                Icon = new System.Drawing.Icon("footer-logo.ico"),
                 Visible = true,
                 ContextMenu = new ContextMenu(new[]
                 {

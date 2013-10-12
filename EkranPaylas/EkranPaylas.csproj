@@ -28,8 +28,8 @@
     <UpdateRequired>false</UpdateRequired>
     <MapFileExtensions>true</MapFileExtensions>
     <InstallUrl>http://ekranpaylas.com/installer/</InstallUrl>
-    <ApplicationRevision>0</ApplicationRevision>
-    <ApplicationVersion>1.0.0.0</ApplicationVersion>
+    <ApplicationRevision>3</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <PublishWizardCompleted>true</PublishWizardCompleted>
     <BootstrapperEnabled>true</BootstrapperEnabled>
@@ -80,6 +80,9 @@
   </PropertyGroup>
   <PropertyGroup>
     <ApplicationManifest>Properties\app.manifest</ApplicationManifest>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>footer-logo.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Caliburn.Core">
@@ -144,7 +147,7 @@
     <Compile Include="Graphic\IScreenGrabber.cs" />
     <Compile Include="Graphic\ScreenGrabber.cs" />
     <Compile Include="Core\ServiceLocator.cs" />
-    <Compile Include="Tasks\StartupTasks\ApplicationUpdaterTask.cs" />
+    <Compile Include="Tasks\StartupTasks\UpdaterStartupTask.cs" />
     <Compile Include="Tasks\StartupTasks\HtmlAgilityPackStartupTask.cs" />
     <Compile Include="Tasks\StartupTasks\IStartupTask.cs" />
     <Compile Include="Tasks\StartupTasks\KeyboardHookStartupTask.cs" />
@@ -258,7 +261,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="cloud_off.ico">
+    <Content Include="footer-logo.ico">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Resource Include="Media\cikis.png" />

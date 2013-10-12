@@ -6,10 +6,15 @@
         xmlns:viewModels="clr-namespace:EkranPaylas.ViewModels"
         xmlns:cal="http://www.caliburnproject.org"
         xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
-        WindowStyle="SingleBorderWindow" ResizeMode="NoResize"
+        WindowStyle="SingleBorderWindow" ResizeMode="NoResize" Icon="../footer-logo.ico"
         mc:Ignorable="d" Title="Başarılı!" SizeToContent="WidthAndHeight"  d:DataContext="{d:DesignInstance viewModels:ResultViewModel}">
     <Grid>
         <Grid Margin="10">
+            <Grid.Resources>
+                <ControlTemplate x:Key="Button" TargetType="Button">
+                    <Border Background="{TemplateBinding Background}" Cursor="Hand"/>
+                </ControlTemplate>
+            </Grid.Resources>
             <StackPanel Orientation="Horizontal">
                 <Button HorizontalAlignment="Left" Width="50" cal:Message.Attach="Copy"   Content="Kopyala"></Button>
                 <Border Width="10"></Border>
@@ -17,18 +22,16 @@
                 <Border Width="10"></Border>
                 <TextBox HorizontalAlignment="Right" Text="{Binding Result}" Width="176"/>
                 <Border Width="10"/>
-                <xctk:DropDownButton Content="Paylaş">
-                    <xctk:DropDownButton.DropDownContent>
-                        <ToolBarTray Orientation="Vertical">
-                            <ToolBar IsOverflowOpen="True">
-                                <Button HorizontalAlignment="Stretch" cal:Message.Attach="Facebook" Content="Facebook"></Button>
-                                <Button HorizontalAlignment="Stretch" cal:Message.Attach="Twitter" Content="Twitter"></Button>
-                            </ToolBar>
-                        </ToolBarTray>
-
-                    </xctk:DropDownButton.DropDownContent>
-
-                </xctk:DropDownButton>
+                <Button Width="25" Height="25" cal:Message.Attach="Facebook" ToolTip="Facebook" Template="{StaticResource Button}">
+                    <Button.Background>
+                        <ImageBrush ImageSource="/Media/facebook.png" />
+                    </Button.Background>
+                </Button>
+                <Button Width="25" Height="25" cal:Message.Attach="Twitter" ToolTip="Twitter" Template="{StaticResource Button}">
+                    <Button.Background>
+                        <ImageBrush ImageSource="/Media/twitter.png" />
+                    </Button.Background>
+                </Button>
                 <Border Width="5"></Border>
             </StackPanel>
         </Grid>
